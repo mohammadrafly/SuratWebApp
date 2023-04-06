@@ -75,6 +75,7 @@ class APIController extends ResourceController
             'token' => $token,
             'name' => $dataUser['name'],
             'email'=> $dataUser['email'],
+            'role' => $dataUser['role'],
         ]);
     }
 
@@ -100,18 +101,19 @@ class APIController extends ResourceController
         $model = new Users();
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
-        $userData = $model->authenticate($email, $password);
+        $userData = $model->where('email', $email)->first();
         if (!$userData) {
-            return $this->response->setStatusCode(401)->setJSON(['error' => 'Invalid login credentials']);
+            return $this->response->setStatusCode(401)->setJSON(['error' => 'Email tidak ada di database.']);
         }
     
         if (!password_verify($password, $userData['password'])) {
-            return $this->response->setStatusCode(401)->setJSON(['error' => 'Invalid login credentials']);
+            return $this->response->setStatusCode(401)->setJSON(['error' => 'Password salah.']);
         }
     
         $token = bin2hex(openssl_random_pseudo_bytes(16));
         $model->updateToken($email, $token);
-        return $this->response->setJSON(['token' => $token]);
+        $response = $this->response->setJSON(['token' => $token]);
+        return $response;
     }
 
     public function sendEmailLinkResetPassword()

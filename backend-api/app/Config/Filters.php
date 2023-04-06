@@ -9,6 +9,8 @@ use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 use App\Filters\Auth;
+use App\Filters\AuthWeb;
+use App\Filters\Options;
 
 class Filters extends BaseConfig
 {
@@ -23,6 +25,8 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'auth'          => Auth::class,
+        'authWeb'       => AuthWeb::class,
+        'options'       => Options::class,
     ];
 
     /**
@@ -31,11 +35,13 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         'before' => [
+            'options'
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
         ],
         'after' => [
+            'options',
             'toolbar',
             // 'honeypot',
             // 'secureheaders',

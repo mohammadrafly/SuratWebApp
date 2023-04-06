@@ -32,6 +32,19 @@ $routes->set404Override();
 
 // API Resources
 $routes->group('api', ['filter' => 'auth'], function ($routes) {
+    $routes->resource('surat-permohonan-kartu-keluarga', ['controller' => 'SuratPermohonanKartuKeluarga']);
+    $routes->resource('surat-pengantar-permohonan-ktp', ['controller' => 'SuratPengantarPermohonanKTP']);
+    $routes->resource('surat-permohonan-ktp', ['controller' => 'SuratPermohonanKTP']);
+    $routes->resource('surat-keterangan-belum-menikah', ['controller' => 'SuratKeteranganBelumMenikah']);
+    $routes->resource('surat-keterangan-skck', ['controller' => 'SuratKeteranganSKCK']);
+    $routes->resource('surat-keterangan-wali', ['controller' => 'SuratKeteranganWali']);
+    $routes->resource('surat-keterangan-penghasilan', ['controller' => 'SuratKeteranganPenghasilan']);
+    $routes->resource('surat-keterangan-tidak-mampu', ['controller' => 'SuratKeteranganTidakMampu']);
+    $routes->resource('surat-kelahiran', ['controller' => 'SuratKelahiran']);
+    $routes->resource('surat-kematian', ['controller' => 'SuratKematian']);
+    $routes->resource('surat-pengantar-nikah', ['controller' => 'SuratPengantarNikah']);
+    $routes->resource('surat-pernyataan', ['controller' => 'SuratPernyataan']);
+    
     $routes->get('my-profile/(:any)', 'APIController::myProfile/$1');
 });
 $routes->post('api/register', 'APIController::register');
@@ -40,7 +53,9 @@ $routes->post('api/reset-password', 'APIController::sendEmailLinkResetPassword')
 // End API Resources
 
 $routes->get('/', 'Home::index');
-$routes->get('dashboard', 'DashboardController::index');
+$routes->group('dashboard', ['filter' => 'authWeb'], function($routes) {
+    $routes->get('/', 'DashboardController::index');
+});
 
 $routes->match(['GET', 'POST'], 'sign-in', 'Home::login');
 $routes->match(['GET', 'POST'], 'sign-up', 'Home::register');
