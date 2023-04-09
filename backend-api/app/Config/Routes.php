@@ -44,6 +44,10 @@ $routes->group('api', ['filter' => 'auth'], function ($routes) {
     $routes->resource('surat-kematian', ['controller' => 'SuratKematian']);
     $routes->resource('surat-pengantar-nikah', ['controller' => 'SuratPengantarNikah']);
     $routes->resource('surat-pernyataan', ['controller' => 'SuratPernyataan']);
+
+    //Get Surat and Edit
+    $routes->get('single/surat/(:num)', 'SuratAPIController::singleSurat/$1');
+    $routes->post('single/surat/update', 'SuratAPIController::updateSurat');
     
     $routes->get('my-profile/(:any)', 'APIController::myProfile/$1');
 });

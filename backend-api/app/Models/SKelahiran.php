@@ -23,7 +23,9 @@ class SKelahiran extends Model
         'anak_ke',
         'penolong_kelahiran',
         'alamat_anak',
-        'nik'
+        'nik',
+        'status_ttd',
+        'disposisi_surat'
     ];
 
     // Dates

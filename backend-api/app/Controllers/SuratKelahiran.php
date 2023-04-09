@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Users;
-use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\RESTful\ResourceController;
 
 class SuratKelahiran extends ResourceController
@@ -30,17 +29,11 @@ class SuratKelahiran extends ResourceController
         $token = str_replace('Bearer ', '', $authHeader);
         $user = $modelUser->where('token', $token)->first();
         
-        if ($user['role'] !== 'administrator') {
-            return $this->respondCreated([
-                'status' => 403,
-                'error' => true,
-                'messages' => [
-                    'success' => 'Access Denied!'
-                ]
-            ]);
+        if ($user['role'] === 'warga') {
+            return $this->respond($this->model->where('author', $user['email'])->find());
+        } else {
+            return $this->respond($this->model->findAll());
         }
-        
-        return $this->respond($this->model->findAll());
     }
     
 
