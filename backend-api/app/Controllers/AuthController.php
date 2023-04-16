@@ -45,11 +45,11 @@ class AuthController extends BaseController
     {
         $sessionData = [
             'isLoggedIn' => true,
-            'id' => $userData[0]['id'],
-            'name' => $userData[0]['name'],
-            'email' => $userData[0]['email'],
-            'role' => $userData[0]['role'],
-            'created_at' => $userData[0]['created_at'],
+            'id' => $userData['id'],
+            'name' => $userData['name'],
+            'email' => $userData['email'],
+            'role' => $userData['role'],
+            'created_at' => $userData['created_at'],
         ];
     
         session()->set($sessionData);
@@ -57,14 +57,9 @@ class AuthController extends BaseController
         return true;
     }
 
-    private function notificationMessage($status, $icon, $title, $text)
+    private function notificationMessage(array $fields)
     {
-        return $this->response->setJSON([
-            'status' => $status,
-            'icon' => $icon,
-            'title' => $title,
-            'text' => $text,
-        ]);
+        return $this->response->setJSON($fields);
     }
 
     private function sendResetPasswordEmail($to, $data)
@@ -119,15 +114,35 @@ class AuthController extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
         $checkPoint = $model->where('email', $email)->first();
-        if (!$checkPoint) {
-            $this->notificationMessage(false, 'error', 'Peringatan!', 'Email invalid.');
-        }
-        if (password_verify($password, $checkPoint['password'])) {
-            $this->notificationMessage(true, 'success', 'Success!', 'Login berhasil.');
-            $this->setSession($checkPoint);
+        if (isset($checkPoint) && isset($checkPoint['password'])) {
+            if (password_verify($password, $checkPoint['password'])) {
+                $this->setSession($checkPoint);
+                $response = $this->notificationMessage([
+                    'status' => true, 
+                    'icon' => 'success', 
+                    'title' => 'Success!', 
+                    'text' => 'Login berhasil.'
+                ]);
+                return $response;
+            } else {
+                $response = $this->notificationMessage([
+                    'status' => false,
+                    'icon' => 'error',
+                    'title' => 'Peringatan!',
+                    'text' => 'Password invalid.',
+                ]);
+                return $response;
+            }
         } else {
-            $this->notificationMessage(false, 'error', 'Peringatan!', 'Password invalid.');
+            $response = $this->notificationMessage([
+                'status' => false,
+                'icon' => 'error',
+                'title' => 'Peringatan!',
+                'text' => 'Email invalid.',
+            ]);
+            return $response;
         }
+
     }
 
     public function SignUp()
@@ -143,10 +158,12 @@ class AuthController extends BaseController
         $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
         $data['role'] = 'warga';
         if ($model->where('email', $data['email'])->first()) {
-            $this->notificationMessage(false, 'error', 'Peringatan!', 'Email telah digunakan.');
+            $response = $this->notificationMessage([false, 'error', 'Peringatan!', 'Email telah digunakan.']);
+            return $response;
         }
         $model->insert($data);
-        $this->notificationMessage(true, 'success', 'Success!', 'Daftar berhasil.');
+        $response = $this->notificationMessage([true, 'success', 'Success!', 'Daftar berhasil.']);
+        return $response;
     }
 
     public function resetPassword()

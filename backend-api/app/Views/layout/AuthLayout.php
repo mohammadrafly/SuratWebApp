@@ -37,9 +37,12 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="<?= base_url('assets/vendors/core/core.js') ?>"></script>
 	<script src="<?= base_url('assets/vendors/feather-icons/feather.min.js') ?>"></script>
 	<script src="<?= base_url('assets/js/template.js') ?>"></script>
+	<script src="<?= base_url('assets/js/custom/main.js') ?>"></script>
+	<?= $this->renderSection('script') ?>
 </body>
 </html>
             

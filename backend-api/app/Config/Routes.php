@@ -45,10 +45,24 @@ $routes->group('api', ['filter' => 'auth'], function ($routes) {
     $routes->resource('surat-pengantar-nikah', ['controller' => 'SuratPengantarNikah']);
     $routes->resource('surat-pernyataan', ['controller' => 'SuratPernyataan']);
 
-    //Get Surat and Edit
-    $routes->get('single/surat/(:num)', 'SuratAPIController::singleSurat/$1');
+    //Get Surat by ID
+    $routes->get('single/surat/kelahiran/(:num)', 'SuratAPIController::singleSuratKelahiran/$1');
+    $routes->get('single/surat/kematian/(:num)', 'SuratAPIController::singleSuratKematian/$1');
+    $routes->get('single/surat/keterangan-belum-menikah/(:num)', 'SuratAPIController::singleSuratKeteranganBelumMenikah/$1');
+    $routes->get('single/surat/keterangan-penghasilan/(:num)', 'SuratAPIController::singleSuratKeteranganPenghasilan/$1');
+    $routes->get('single/surat/keterangan-skck/(:num)', 'SuratAPIController::singleSuratKeteranganSKCK/$1');
+    $routes->get('single/surat/keterangan-tidak-mampu/(:num)', 'SuratAPIController::singleSuratKeteranganTidakMampu/$1');
+    $routes->get('single/surat/keterangan-wali/(:num)', 'SuratAPIController::singleSuratKeteranganWali/$1');
+    $routes->get('single/surat/pengantar-nikah/(:num)', 'SuratAPIController::singleSuratPengantarNikah/$1');
+    $routes->get('single/surat/pengantar-permohonan-ktp/(:num)', 'SuratAPIController::singleSuratPengantarPermohonanKTP/$1');
+    $routes->get('single/surat/permohonan-kartu-keluarga/(:num)', 'SuratAPIController::singleSuratPermohonanKartuKeluarga/$1');
+    $routes->get('single/surat/permohonan-ktp/(:num)', 'SuratAPIController::singleSuratPermohonanKTP/$1');
+    $routes->get('single/surat/pernyataan/(:num)', 'SuratAPIController::singleSuratPernyataan/$1');
+
+    //Update Surat by ID
     $routes->post('single/surat/update', 'SuratAPIController::updateSurat');
     
+    //Profile
     $routes->get('my-profile/(:any)', 'APIController::myProfile/$1');
 });
 $routes->post('api/register', 'APIController::register');
@@ -61,8 +75,8 @@ $routes->group('dashboard', ['filter' => 'authWeb'], function($routes) {
     $routes->get('/', 'DashboardController::index');
 });
 
-$routes->match(['GET', 'POST'], 'sign-in', 'Home::login');
-$routes->match(['GET', 'POST'], 'sign-up', 'Home::register');
+$routes->match(['GET', 'POST'], 'sign-in', 'AuthController::SignIn');
+$routes->match(['GET', 'POST'], 'sign-up', 'AuthController::SignUp');
 $routes->match(['GET', 'POST'], 'reset-password-request', 'AuthController::resetPassword');
 $routes->match(['GET', 'POST'], 'reset-password/(:any)/(:any)', 'AuthController::newPassword/$1/$2');
 
