@@ -10,14 +10,4 @@ class Home extends BaseController
     {
         return view('pages/home');
     }
-
-    public function login()
-    {
-        return view('pages/auth/SignIn');
-    }
-
-    public function register()
-    {
-        return view('pages/auth/SignUp');
-    }
 }

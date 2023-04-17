@@ -28,6 +28,3 @@
                                             <a href="<?= base_url('sign-up') ?>" class="d-block mt-3 text-muted">Not a user? Sign up</a>
                                         </form>
 <?= $this->endSection() ?>
-<?= $this->section('script') ?>
-<script src="<?= base_url('assets/js/custom/auth.js') ?>"></script>
-<?= $this->endSection() ?>

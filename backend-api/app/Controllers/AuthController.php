@@ -116,14 +116,24 @@ class AuthController extends BaseController
         $checkPoint = $model->where('email', $email)->first();
         if (isset($checkPoint) && isset($checkPoint['password'])) {
             if (password_verify($password, $checkPoint['password'])) {
-                $this->setSession($checkPoint);
-                $response = $this->notificationMessage([
-                    'status' => true, 
-                    'icon' => 'success', 
-                    'title' => 'Success!', 
-                    'text' => 'Login berhasil.'
-                ]);
-                return $response;
+                if ($checkPoint['role'] !== 'warga') {
+                    $this->setSession($checkPoint);
+                    $response = $this->notificationMessage([
+                        'status' => true, 
+                        'icon' => 'success', 
+                        'title' => 'Success!', 
+                        'text' => 'Login berhasil.'
+                    ]);
+                    return $response;
+                } else {
+                    $response = $this->notificationMessage([
+                        'status' => false,
+                        'icon' => 'error',
+                        'title' => 'Caution!',
+                        'text' => 'Citizen are not allowed.',
+                    ]);
+                    return $response;
+                }
             } else {
                 $response = $this->notificationMessage([
                     'status' => false,
@@ -153,16 +163,27 @@ class AuthController extends BaseController
         }
         $data = $this->request->getPost([
             'name',
-            'email'
+            'email',
+            'password'
         ]);
         $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
         $data['role'] = 'warga';
         if ($model->where('email', $data['email'])->first()) {
-            $response = $this->notificationMessage([false, 'error', 'Peringatan!', 'Email telah digunakan.']);
+            $response = $this->notificationMessage([
+                'status' => false,
+                'icon' => 'error',
+                'title' => 'Peringatan!',
+                'text' => 'Email telah digunakan.',
+            ]);
             return $response;
         }
         $model->insert($data);
-        $response = $this->notificationMessage([true, 'success', 'Success!', 'Daftar berhasil.']);
+        $response = $this->notificationMessage([
+            'status' => true, 
+            'icon' => 'success', 
+            'title' => 'Success!', 
+            'text' => 'Daftar berhasil.'
+        ]);
         return $response;
     }
 
@@ -176,7 +197,13 @@ class AuthController extends BaseController
         $email = $this->request->getPost('email');
         $checkPoint = $model->where('email', $email)->first();
         if (!$checkPoint) {
-            $this->notificationMessage(false, 'error', 'Peringatan!', 'Email invalid.');
+            $response = $this->notificationMessage([
+                'status' => true, 
+                'icon' => 'success', 
+                'title' => 'Success!', 
+                'text' => 'Email invlaid.'
+            ]);
+            return $response;
         }
         $token = $this->generateToken(150);
         $data = [
@@ -187,14 +214,26 @@ class AuthController extends BaseController
         if ($resetToken->insert($this->resetPasswordData($token, $email, $this->oneHourFromNowIs()))) {
             $emailSent = $this->sendResetPasswordEmail($email, $data);
             if ($emailSent) {
-                $this->notificationMessage(true, 'success', 'Success!', 'Permintaan reset password berhasil.');
+                $response = $this->notificationMessage([
+                    'status' => true, 
+                    'icon' => 'success', 
+                    'title' => 'Success!', 
+                    'text' => 'Permintaan reset password berhasil.'
+                ]);
+                return $response;
             } else {
                 $email = \Config\Services::email();
                 $data = $email->printDebugger(['headers']);
                 print_r($data);
             }
         } else {
-            $this->notificationMessage(false, 'error', 'Peringatan!', 'Permintaan reset password gagal.');
+            $response = $this->notificationMessage([
+                'status' => true, 
+                'icon' => 'success', 
+                'title' => 'Success!', 
+                'text' => 'Permintaan reset password gagal.'
+            ]);
+            return $response;
         }
     }
 

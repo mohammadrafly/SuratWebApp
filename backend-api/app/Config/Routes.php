@@ -72,7 +72,84 @@ $routes->post('api/reset-password', 'APIController::sendEmailLinkResetPassword')
 
 $routes->get('/', 'Home::index');
 $routes->group('dashboard', ['filter' => 'authWeb'], function($routes) {
+    $routes->get('logout', 'DashboardController::LogOut');
     $routes->get('/', 'DashboardController::index');
+
+    $routes->group('surat', function($routes) {
+        //Kelahiran
+        $routes->match(['POST', 'GET'], 'kelahiran', 'SuratController::kelahiran');
+        $routes->match(['PPST', 'GET'], 'kelahiran/(:num)', 'SuratController::updateKelahiran/$1');
+        $routes->get('kelahiran/delete/(:num)', 'SuratController::deleteKelahiran/$1');
+        
+        //Kematian
+        $routes->match(['POST', 'GET'], 'kematian', 'SuratController::kematian');
+        $routes->match(['PPST', 'GET'], 'kematian/(:num)', 'SuratController::updateKematian/$1');
+        $routes->get('kematian/delete/(:num)', 'SuratController::deleteKematian/$1');
+
+        //Pernyataan
+        $routes->match(['POST', 'GET'], 'pernyataan', 'SuratController::pernyataan');
+        $routes->match(['PPST', 'GET'], 'pernyataan/(:num)', 'SuratController::updatePernyataan/$1');
+        $routes->get('pernyataan/delete/(:num)', 'SuratController::deletePernyataan/$1');
+
+        $routes->group('keterangan', function($routes) {
+            //Belum Menikah
+            $routes->match(['POST', 'GET'], 'belum-menikah', 'SuratController::belumMenikah');
+            $routes->match(['PPST', 'GET'], 'belum-menikah/(:num)', 'SuratController::updateBelumMenikah/$1');
+            $routes->get('belum-menikah/delete/(:num)', 'SuratController::deleteBelumMenikah/$1');
+
+            //Penghasilan
+            $routes->match(['POST', 'GET'], 'penghasilan', 'SuratController::Penghasilan');
+            $routes->match(['PPST', 'GET'], 'penghasilan/(:num)', 'SuratController::updatePenghasilan/$1');
+            $routes->get('penghasilan/delete/(:num)', 'SuratController::deletePenghasilan/$1');
+
+            //SKCK
+            $routes->match(['POST', 'GET'], 'skck', 'SuratController::SKCK');
+            $routes->match(['PPST', 'GET'], 'skck/(:num)', 'SuratController::updateSKCK/$1');
+            $routes->get('skck/delete/(:num)', 'SuratController::deleteSKCK/$1');
+
+            //Tidak Mampu
+            $routes->match(['POST', 'GET'], 'tidak-mampu', 'SuratController::tidakMampu');
+            $routes->match(['PPST', 'GET'], 'tidak-mampu/(:num)', 'SuratController::updateTidakMampu/$1');
+            $routes->get('tidak-mampu/delete/(:num)', 'SuratController::deleteTidakMampu/$1');
+
+            //Wali
+            $routes->match(['POST', 'GET'], 'wali', 'SuratController::wali');
+            $routes->match(['PPST', 'GET'], 'wali/(:num)', 'SuratController::updateWali/$1');
+            $routes->get('wali/delete/(:num)', 'SuratController::deleteWali/$1');
+
+            //Wali
+            $routes->match(['POST', 'GET'], 'wali', 'SuratController::wali');
+            $routes->match(['PPST', 'GET'], 'wali/(:num)', 'SuratController::updateWali/$1');
+            $routes->get('wali/delete/(:num)', 'SuratController::deleteWali/$1');
+        });
+
+        $routes->group('pengantar', function($routes) {
+            //Nikah
+            $routes->match(['POST', 'GET'], 'nikah', 'SuratController::nikah');
+            $routes->match(['PPST', 'GET'], 'nikah/(:num)', 'SuratController::updateNikah/$1');
+            $routes->get('nikah/delete/(:num)', 'SuratController::deleteNikah/$1');
+
+            //Permohonan-ktp
+            $routes->match(['POST', 'GET'], 'permohonan-ktp', 'SuratController::permohonanKTP');
+            $routes->match(['PPST', 'GET'], 'permohonan-ktp/(:num)', 'SuratController::updatePermohonanKTP/$1');
+            $routes->get('permohonan-ktp/delete/(:num)', 'SuratController::deletePermohonanKTP/$1');
+        });
+
+        $routes->group('permohonan', function($routes) {
+            //KartuKeluarga
+            $routes->match(['POST', 'GET'], 'kartu-keluarga', 'SuratController::kartuKeluarga');
+            $routes->match(['PPST', 'GET'], 'kartu-keluarga/(:num)', 'SuratController::updateKartuKeluarga/$1');
+            $routes->get('kartu-keluarga/delete/(:num)', 'SuratController::deleteKartuKeluarga/$1');
+
+            //KTP
+            $routes->match(['POST', 'GET'], 'ktp', 'SuratController::kTP');
+            $routes->match(['PPST', 'GET'], 'ktp/(:num)', 'SuratController::updateKTP/$1');
+            $routes->get('ktp/delete/(:num)', 'SuratController::deleteKTP/$1');
+        });
+    });
+
+    $routes->get('users', 'DashboardController::DataUsers');
+    $routes->get('rwp-request', 'DashboardController::DataRPWrequest');
 });
 
 $routes->match(['GET', 'POST'], 'sign-in', 'AuthController::SignIn');

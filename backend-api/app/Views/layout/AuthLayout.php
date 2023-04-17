@@ -42,7 +42,7 @@
 	<script src="<?= base_url('assets/vendors/feather-icons/feather.min.js') ?>"></script>
 	<script src="<?= base_url('assets/js/template.js') ?>"></script>
 	<script src="<?= base_url('assets/js/custom/main.js') ?>"></script>
-	<?= $this->renderSection('script') ?>
+	<script src="<?= base_url('assets/js/custom/auth.js') ?>"></script>
 </body>
 </html>
             
