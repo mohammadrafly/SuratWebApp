@@ -7,14 +7,23 @@ use CodeIgniter\Model;
 class SKeteranganPenghasilan extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 's_keteranganpenghasilan';
+    protected $table            = 's_keterangan_penghasilan';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'author',
+        'nama',
+        'nik',
+        'ttl',
+        'pekerjaan',
+        'penghasilan',
+        'status_ttd',
+        'disposisi_surat',
+    ];
 
     // Dates
     protected $useTimestamps = false;

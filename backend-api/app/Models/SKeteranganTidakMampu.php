@@ -7,14 +7,23 @@ use CodeIgniter\Model;
 class SKeteranganTidakMampu extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 's_keterangantidakmampu';
+    protected $table            = 's_keterangan_tidak_mampu';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'author',
+        'nama',
+        'nik',
+        'ttl',
+        'alamat',
+        'pekerjaan',
+        'status_ttd',
+        'disposisi_surat'
+    ];
 
     // Dates
     protected $useTimestamps = false;

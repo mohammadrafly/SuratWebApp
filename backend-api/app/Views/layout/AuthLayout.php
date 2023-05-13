@@ -1,48 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>NobleUI Responsive Bootstrap 4 Dashboard Template</title>
-	<link rel="stylesheet" href="<?= base_url('assets/vendors/core/core.css') ?>">
-	<link rel="stylesheet" href="<?= base_url('assets/fonts/feather-font/css/iconfont.css') ?>">
-	<link rel="stylesheet" href="<?= base_url('assets/vendors/flag-icon-css/css/flag-icon.min.css') ?>">
-	<link rel="stylesheet" href="<?= base_url('assets/css/demo_1/style.css') ?>">
-    <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.png') ?>" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Surat Web App</title>
+  <link rel="stylesheet" href="<?= base_url('assets/vendors/feather/feather.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/vendors/ti-icons/css/themify-icons.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/vendors/css/vendor.bundle.base.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/vertical-layout-light/style.css') ?>">
+  <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.png') ?>" />
 </head>
+
 <body>
-	<div class="main-wrapper">
-		<div class="page-wrapper full-page">
-			<div class="page-content d-flex align-items-center justify-content-center">
-				<div class="row w-100 mx-0 auth-page">
-					<div class="col-md-8 col-xl-6 mx-auto">
-						<div class="card">
-							<div class="row">
-                                <div class="col-md-4 pr-md-0">
-                                    <div class="auth-left-wrapper">
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-md-8 pl-md-0">
-                                    <div class="auth-form-wrapper px-4 py-5">
-                                        <a href="#" class="noble-ui-logo d-block mb-2">Noble<span>UI</span></a>
-                                        <?= $this->renderSection('content') ?>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="<?= base_url('assets/vendors/core/core.js') ?>"></script>
-	<script src="<?= base_url('assets/vendors/feather-icons/feather.min.js') ?>"></script>
-	<script src="<?= base_url('assets/js/template.js') ?>"></script>
-	<script src="<?= base_url('assets/js/custom/main.js') ?>"></script>
-	<script src="<?= base_url('assets/js/custom/auth.js') ?>"></script>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="<?= base_url('assets/images/logo.svg') ?>" alt="logo">
+              </div>
+              <?= $this->renderSection('content') ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="<?= base_url('js/Auth.js') ?>"></script>
+  <script src="<?= base_url('js/Main.js') ?>"></script>
+  <script src="<?= base_url('assets/vendors/js/vendor.bundle.base.js') ?>"></script>
+  <script src="<?= base_url('assets/js/off-canvas.js') ?>"></script>
+  <script src="<?= base_url('assets/js/hoverable-collapse.js') ?>"></script>
+  <script src="<?= base_url('assets/js/template.js') ?>"></script>
+  <script src="<?= base_url('assets/js/settings.js') ?>"></script>
+  <script src="<?= base_url('assets/js/todolist.js') ?>"></script>
 </body>
+
 </html>
-            

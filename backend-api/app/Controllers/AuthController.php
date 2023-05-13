@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\I18n\Time;
-use App\Models\PasswordToken;
+use App\Models\ResetPassword;
 use App\Models\Users;
 use App\Controllers\BaseController;
 
@@ -41,25 +41,16 @@ class AuthController extends BaseController
         return $date_one_hour_later;
     }
 
-    private function setSession(array $userData): bool
+    private function setSession($userData)
     {
-        $sessionData = [
-            'isLoggedIn' => true,
+        return session()->set([
+            'isLoggedIn' => TRUE,
             'id' => $userData['id'],
             'name' => $userData['name'],
             'email' => $userData['email'],
             'role' => $userData['role'],
             'created_at' => $userData['created_at'],
-        ];
-    
-        session()->set($sessionData);
-    
-        return true;
-    }
-
-    private function notificationMessage(array $fields)
-    {
-        return $this->response->setJSON($fields);
+        ]);
     }
 
     private function sendResetPasswordEmail($to, $data)
@@ -85,7 +76,7 @@ class AuthController extends BaseController
 
     private function checkTokenStatus(string $token, ?array $tokenData): array
     {
-        $tokenModel = new PasswordToken();
+        $tokenModel = new ResetPassword();
         if (!$tokenData) {
             return ['isValid' => false, 'message' => 'Invalid token!'];
         }
@@ -108,102 +99,103 @@ class AuthController extends BaseController
     public function SignIn()
     {
         $model = new Users();
-        if (!$this->request->isAJAX() || $this->request->getMethod(true) !== 'POST') {
-            return view('pages/auth/SignIn', ['page' => 'Sign In']);
-        }
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
-        $checkPoint = $model->where('email', $email)->first();
-        if (isset($checkPoint) && isset($checkPoint['password'])) {
-            if (password_verify($password, $checkPoint['password'])) {
-                if ($checkPoint['role'] !== 'warga') {
-                    $this->setSession($checkPoint);
-                    $response = $this->notificationMessage([
-                        'status' => true, 
-                        'icon' => 'success', 
-                        'title' => 'Success!', 
-                        'text' => 'Login berhasil.'
-                    ]);
-                    return $response;
-                } else {
-                    $response = $this->notificationMessage([
-                        'status' => false,
-                        'icon' => 'error',
-                        'title' => 'Caution!',
-                        'text' => 'Citizen are not allowed.',
-                    ]);
-                    return $response;
-                }
-            } else {
-                $response = $this->notificationMessage([
-                    'status' => false,
-                    'icon' => 'error',
-                    'title' => 'Peringatan!',
-                    'text' => 'Password invalid.',
-                ]);
-                return $response;
-            }
-        } else {
-            $response = $this->notificationMessage([
-                'status' => false,
-                'icon' => 'error',
-                'title' => 'Peringatan!',
-                'text' => 'Email invalid.',
-            ]);
-            return $response;
+
+        $email = $this->request->getVar('email');
+        $password = $this->request->getVar('password');
+        $isFrontEnd = $this->request->getVar('frontend');
+
+        if ($this->request->getMethod(true) !== 'POST') {
+            return view('pages/auth/SignIn');
         }
 
+        $checkPoint = $model->where('email', $email)->first();
+        
+        if (!$checkPoint) {
+            return $this->response->setJSON([
+                'status' => false,
+                'icon' => 'error',
+                'title' => 'Failed!',
+                'text' => 'Email invalid.'
+            ]);
+        }
+
+        if (password_verify($password, $checkPoint['password'])) {
+            if ($isFrontEnd) {
+                $token = $this->generateToken(100);
+                $data['token'] = $token;
+                $model->update($checkPoint['id'], $data);
+            }
+            $this->setSession($checkPoint);
+            return $this->response->setJSON([
+                'status' => true, 
+                'icon' => 'success', 
+                'title' => 'Success!', 
+                'text' => 'Login berhasil.',
+                'dataUser' => $checkPoint,
+                'token' => $isFrontEnd ? $token : null
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status' => false,
+                'icon' => 'error',
+                'title' => 'Failed!',
+                'text' => 'Password invalid.'
+            ]);
+        }
     }
 
     public function SignUp()
     {
         $model = new Users();
-        if (!$this->request->isAJAX() || $this->request->getMethod(true) !== 'POST') {
-            return view('pages/auth/SignUp', ['page' => 'Sign Up']);
-        }
-        $data = $this->request->getPost([
-            'name',
-            'email',
-            'password'
-        ]);
-        $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
-        $data['role'] = 'warga';
+        $data = [
+            'email' => $this->request->getVar('email'),
+            'name' => $this->request->getVar('name'),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'role' => 'warga'
+        ];
+
         if ($model->where('email', $data['email'])->first()) {
-            $response = $this->notificationMessage([
+            return $this->response->setJSON([
                 'status' => false,
                 'icon' => 'error',
-                'title' => 'Peringatan!',
-                'text' => 'Email telah digunakan.',
+                'title' => 'Failed!',
+                'text' => 'Email sudah digunakan.'
             ]);
-            return $response;
         }
-        $model->insert($data);
-        $response = $this->notificationMessage([
-            'status' => true, 
-            'icon' => 'success', 
-            'title' => 'Success!', 
-            'text' => 'Daftar berhasil.'
+
+        if (!$model->insert($data)) {
+            return $this->response->setJSON([
+                'status' => false,
+                'icon' => 'error',
+                'title' => 'Failed!',
+                'text' => 'Gagal melakukan pendaftaran.'
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => true,
+            'icon' => 'success',
+            'title' => 'Success!',
+            'text' => 'Berhasil melakukan pendaftaran.'
         ]);
-        return $response;
     }
 
     public function resetPassword()
     {
         $model = new Users();
-        $resetToken = new PasswordToken();
+        $resetToken = new ResetPassword();
         if (!$this->request->isAJAX() || $this->request->getMethod(true) !== 'POST') {
             return view('pages/auth/ResetPassword', ['page' => 'Reset Password']);
         }
         $email = $this->request->getPost('email');
         $checkPoint = $model->where('email', $email)->first();
         if (!$checkPoint) {
-            $response = $this->notificationMessage([
+            return $this->response->setJSON([
                 'status' => true, 
                 'icon' => 'success', 
                 'title' => 'Success!', 
                 'text' => 'Email invlaid.'
             ]);
-            return $response;
         }
         $token = $this->generateToken(150);
         $data = [
@@ -214,36 +206,39 @@ class AuthController extends BaseController
         if ($resetToken->insert($this->resetPasswordData($token, $email, $this->oneHourFromNowIs()))) {
             $emailSent = $this->sendResetPasswordEmail($email, $data);
             if ($emailSent) {
-                $response = $this->notificationMessage([
+                return $this->response->setJSON([
                     'status' => true, 
                     'icon' => 'success', 
                     'title' => 'Success!', 
                     'text' => 'Permintaan reset password berhasil.'
                 ]);
-                return $response;
             } else {
                 $email = \Config\Services::email();
                 $data = $email->printDebugger(['headers']);
                 print_r($data);
             }
         } else {
-            $response = $this->notificationMessage([
+            return $this->response->setJSON([
                 'status' => true, 
                 'icon' => 'success', 
                 'title' => 'Success!', 
                 'text' => 'Permintaan reset password gagal.'
             ]);
-            return $response;
         }
     }
 
     public function newPassword(string $email, string $token)
     {
         $usersModel = new Users();
-        $tokenModel = new PasswordToken();
+        $tokenModel = new ResetPassword();
         $password = $this->request->getPost('password');
         if (!$password) {
-            $this->notificationMessage(false, 'error', 'Peringatan!', 'Password cannot be nulled.');
+            return $this->response->setJSON([
+                'status' => false, 
+                'icon' => 'error', 
+                'title' => 'Peringatan!', 
+                'text' => 'Password tidak boleh kosong.'
+            ]);
         }
         $user = $usersModel->where('email', $email)->first();
         $tokenData = $tokenModel->where('email', $email)->first();
@@ -260,7 +255,12 @@ class AuthController extends BaseController
         }
     
         $usersModel->update($user['id'], ['password' => $password]);
-        $this->notificationMessage(true, 'success', 'Success!', 'Password reset successful.');
+        return $this->response->setJSON([
+            'status' => true, 
+            'icon' => 'success', 
+            'title' => 'Success!', 
+            'text' => 'Reset password berhasil.'
+        ]);
         return view('pages/auth/NewPassword', ['page' => 'New Password']);
     }
 }

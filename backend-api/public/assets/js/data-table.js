@@ -1,18 +1,17 @@
-$(function() {
+(function($) {
   'use strict';
-
   $(function() {
-    $('#dataTableExample').DataTable({
+    $('#order-listing').DataTable({
       "aLengthMenu": [
-        [10, 30, 50, -1],
-        [10, 30, 50, "All"]
+        [5, 10, 15, -1],
+        [5, 10, 15, "All"]
       ],
       "iDisplayLength": 10,
       "language": {
         search: ""
       }
     });
-    $('#dataTableExample').each(function() {
+    $('#order-listing').each(function() {
       var datatable = $(this);
       // SEARCH - Add the placeholder for Search and Turn this into in-line form control
       var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
@@ -23,5 +22,4 @@ $(function() {
       length_sel.removeClass('form-control-sm');
     });
   });
-
-});
+})(jQuery);

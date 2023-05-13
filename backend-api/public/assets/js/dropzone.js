@@ -1,7 +1,6 @@
-$(function() {
+(function($) {
   'use strict';
-
-  $("exampleDropzone").dropzone({
-    url: 'nobleui.com'
+  $("my-awesome-dropzone").dropzone({
+    url: "bootstrapdash.com/"
   });
-});
+})(jQuery);

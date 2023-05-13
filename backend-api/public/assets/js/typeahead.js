@@ -1,6 +1,5 @@
-$(function() {
-  'use strict'
-
+(function($) {
+  'use strict';
   var substringMatcher = function(strs) {
     return function findMatches(q, cb) {
       var matches, substringRegex;
@@ -58,4 +57,4 @@ $(function() {
     name: 'states',
     source: states
   });
-});
+})(jQuery);

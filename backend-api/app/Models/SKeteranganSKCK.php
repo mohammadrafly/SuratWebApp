@@ -7,14 +7,27 @@ use CodeIgniter\Model;
 class SKeteranganSKCK extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 's_keteranganskck';
+    protected $table            = 's_keterangan_skck';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'author',
+        'nama',
+        'nik',
+        'jenis_kelamin',
+        'ttl',
+        'agama',
+        'alamat',
+        'status_perkawinan',
+        'pekerjaan',
+        'kewarganegaraan',
+        'status_ttd',
+        'disposisi_surat',
+    ];
 
     // Dates
     protected $useTimestamps = false;

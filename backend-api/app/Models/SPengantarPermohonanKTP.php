@@ -7,14 +7,26 @@ use CodeIgniter\Model;
 class SPengantarPermohonanKTP extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 's_pengantarpermohonanktp';
+    protected $table            = 's_pengantar_permohonan_ktp';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'author',
+        'nama',
+        'nik',
+        'alamat',
+        'kelurahan',
+        'kecamatan',
+        'kabupaten',
+        'jumlah_berkas',
+        'keterangan',
+        'status_ttd',
+        'disposisi_surat'
+    ];
 
     // Dates
     protected $useTimestamps = false;

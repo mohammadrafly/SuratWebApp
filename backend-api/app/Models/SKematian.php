@@ -14,7 +14,20 @@ class SKematian extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'author',
+        'nama',
+        'nik',
+        'jenis_kelamin',
+        'ttl',
+        'agama',
+        'alamat_tinggal',
+        'tanggal_meninggal',
+        'alamat_meninggal',
+        'meninggal_karena',
+        'status_ttd',
+        'disposisi_surat'
+    ];
 
     // Dates
     protected $useTimestamps = false;

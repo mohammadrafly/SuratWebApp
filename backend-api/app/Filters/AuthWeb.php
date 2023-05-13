@@ -26,7 +26,7 @@ class AuthWeb implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get('isLoggedIn')) {
-            redirect()->to('/')->with('error', 'Invalid credentials');
+            return redirect()->to('/')->with('error', 'Invalid credentials');
         }
     }
 

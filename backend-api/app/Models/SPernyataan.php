@@ -14,7 +14,19 @@ class SPernyataan extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'author',
+        'nama',
+        'binti',
+        'ttl',
+        'kewarganegaraan',
+        'agama',
+        'pekerjaan',
+        'alamat',
+        'pernyataan',
+        'status_ttd',
+        'disposisi_surat'
+    ];
 
     // Dates
     protected $useTimestamps = false;
