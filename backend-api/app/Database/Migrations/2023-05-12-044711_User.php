@@ -20,6 +20,21 @@ class User extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'nik' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'nomor_hp' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'alamat' => [
+                'type' => 'TEXT',
+            ],
+            'foto_ktp' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'email' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',

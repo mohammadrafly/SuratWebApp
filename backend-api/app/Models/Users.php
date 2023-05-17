@@ -16,7 +16,11 @@ class Users extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'name',
+        'nik',
         'email',
+        'alamat',
+        'nomor_hp',
+        'foto_ktp',
         'password',
         'role',
         'token'

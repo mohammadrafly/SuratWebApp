@@ -38,11 +38,71 @@ $routes->group('api/V1/', function ($routes) {
 });
 
 $routes->group('api/V1/', ['filter' => 'auth'], function($routes) {
-    $routes->get('kelahiran/single/(:num)', 'SuratController::suratKelahiranSingle/$1');
-    $routes->get('kelahiran/(:any)', 'SuratController::suratKelahiranByEmail/$1');
-    $routes->match(['POST', 'GET'], 'kelahiran', 'SuratController::suratKelahiran');
-    $routes->post('kelahiran/update/(:num)', 'SuratController::suratKelahiranUpdate');
-    $routes->get('my-profile/(:any)', 'DashboardController::myProfile/$1');
+    //surat-kelahiran
+    $routes->match(['POST', 'GET'], 'kelahiran/(:num)', 'KelahiranController::update/$1');
+    $routes->match(['POST', 'GET'], 'kelahiran', 'KelahiranController::index');
+    $routes->get('kelahiran/delete/(:num)', 'KelahiranController::delete/$1');
+    $routes->get('kelahiran/(:any)', 'KelahiranController::getSuratByEmail/$1');
+
+    //surat-kematian
+    $routes->match(['POST', 'GET'], 'kematian/(:num)', 'KematianController::update/$1');
+    $routes->match(['POST', 'GET'], 'kematian', 'KematianController::index');
+    $routes->get('kematian/delete/(:num)', 'KematianController::delete/$1');
+    $routes->get('kematian/(:any)', 'KematianController::getSuratByEmail/$1');
+
+    //surat-keterangan-belum-menikah
+    $routes->match(['POST', 'GET'], 'keterangan-belum-menikah/(:num)', 'KBelumMenikahController::update/$1');
+    $routes->match(['POST', 'GET'], 'keterangan-belum-menikah', 'KBelumMenikahController::index');
+    $routes->get('keterangan-belum-menikah/delete/(:num)', 'KBelumMenikahController::delete/$1');
+    $routes->get('keterangan-belum-menikah/(:any)', 'KBelumMenikahController::getSuratByEmail/$1');
+
+    //surat-keterangan-penghasilan
+    $routes->match(['POST', 'GET'], 'keterangan-penghasilan/(:num)', 'KPenghasilanController::update/$1');
+    $routes->match(['POST', 'GET'], 'keterangan-penghasilan', 'KPenghasilanController::index');
+    $routes->get('keterangan-penghasilan/delete/(:num)', 'KPenghasilanController::delete/$1');
+    $routes->get('keterangan-penghasilan/(:any)', 'KPenghasilanController::getSuratByEmail/$1');
+
+    //surat-keterangan-permohonan-ktp
+    $routes->match(['POST', 'GET'], 'keterangan-permohonan-ktp/(:num)', 'KPermohonanKTPController::update/$1');
+    $routes->match(['POST', 'GET'], 'keterangan-permohonan-ktp', 'KPermohonanKTPController::index');
+    $routes->get('keterangan-permohonan-ktp/delete/(:num)', 'KPermohonanKTPController::delete/$1');
+    $routes->get('keterangan-permohonan-ktp/(:any)', 'KPermohonanKTPController::getSuratByEmail/$1');
+
+    //surat-keterangan-skck
+    $routes->match(['POST', 'GET'], 'keterangan-skck/(:num)', 'KeteranganSKCKController::update/$1');
+    $routes->match(['POST', 'GET'], 'keterangan-skck', 'KeteranganSKCKController::index');
+    $routes->get('keterangan-skck/delete/(:num)', 'KeteranganSKCKController::delete/$1');
+    $routes->get('keterangan-skck/(:any)', 'KeteranganSKCKController::getSuratByEmail/$1');
+
+    //surat-keterangan-tidak-mampu
+    $routes->match(['POST', 'GET'], 'keterangan-tidak-mampu/(:num)', 'KTidakMampuController::update/$1');
+    $routes->match(['POST', 'GET'], 'keterangan-tidak-mampu', 'KTidakMampuController::index');
+    $routes->get('keterangan-tidak-mampu/delete/(:num)', 'KTidakMampuController::delete/$1');
+    $routes->get('keterangan-tidak-mampu/(:any)', 'KTidakMampuController::getSuratByEmail/$1');
+
+    //surat-keterangan-wali-nikah
+    $routes->match(['POST', 'GET'], 'keterangan-wali-nikah/(:num)', 'KWaliNikahController::update/$1');
+    $routes->match(['POST', 'GET'], 'keterangan-wali-nikah', 'KWaliNikahController::index');
+    $routes->get('keterangan-wali-nikah/delete/(:num)', 'KWaliNikahController::delete/$1');
+    $routes->get('keterangan-wali-nikah/(:any)', 'KWaliNikahController::getSuratByEmail/$1');
+
+    //surat-pengantar-nikah
+    $routes->match(['POST', 'GET'], 'pengantar-nikah/(:num)', 'PNikahController::update/$1');
+    $routes->match(['POST', 'GET'], 'pengantar-nikah', 'PNikahController::index');
+    $routes->get('pengantar-nikah/delete/(:num)', 'PNikahController::delete/$1');
+    $routes->get('pengantar-nikah/(:any)', 'PNikahController::getSuratByEmail/$1');
+
+    //surat-pengantar-permohonan-ktp
+    $routes->match(['POST', 'GET'], 'pengantar-permohonan-ktp/(:num)', 'PPermohonanKTPController::update/$1');
+    $routes->match(['POST', 'GET'], 'pengantar-permohonan-ktp', 'PPermohonanKTPController::index');
+    $routes->get('pengantar-permohonan-ktp/delete/(:num)', 'PPermohonanKTPController::delete/$1');
+    $routes->get('pengantar-permohonan-ktp/(:any)', 'PPermohonanKTPController::getSuratByEmail/$1');
+
+    //surat-pernyataan
+    $routes->match(['POST', 'GET'], 'pernyataan/(:num)', 'PernyataanController::update/$1');
+    $routes->match(['POST', 'GET'], 'pernyataan', 'PernyataanController::index');
+    $routes->get('pernyataan/delete/(:num)', 'PernyataanController::delete/$1');
+    $routes->get('pernyataan/(:any)', 'PernyataanController::getSuratByEmail/$1');
 });
 
 $routes->group('dashboard', ['filter' => 'authweb'], function($routes) {
@@ -51,9 +111,6 @@ $routes->group('dashboard', ['filter' => 'authweb'], function($routes) {
         $routes->match(['POST', 'GET'], '/', 'UserController::index');
         $routes->match(['POST', 'GET'], 'update/(:num)', 'UserController::update/$1');
         $routes->get('delete/(:num)', 'UserController::delete/$1');
-    });
-    $routes->group('surat', function($routes) {
-        $routes->match(['POST', 'GET'], 'kelahiran', 'SuratController::suratKelahiran');
     });
 });
 

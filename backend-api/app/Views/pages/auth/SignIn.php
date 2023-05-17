@@ -1,7 +1,7 @@
 <?= $this->extend('layout/AuthLayout') ?>
 
 <?= $this->section('content') ?>  
-              <h4>Hello! let's get started</h4>
+              <h4>Surat Web App</h4>
               <?php if (!empty(session()->getFlashdata('error'))) : ?>
                                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                                 <?php echo session()->getFlashdata('error'); ?>

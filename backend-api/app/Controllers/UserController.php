@@ -10,36 +10,30 @@ class UserController extends BaseController
     public function index()
     {
         $model = new Users();
-
+    
         if ($this->request->getMethod(true) !== 'POST') {
             $data = [
+                'title' => 'User',
                 'content' => $model->findAll(),
             ];
             return view('pages/dashboard/users', $data);
         }
-
-        $data = [
-            'email' => $this->request->getVar('email'),
-            'name' => $this->request->getVar('name'),
-            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-            'role' => $this->request->getVar('role'),
-        ];
+    
+        $data = $this->request->getRawInput();
 
         if (!$model->insert($data)) {
             return $this->response->setJSON([
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Failed!',
-                'text' => 'Gagal menambah user',
+                'message' => 'Gagal menambah user',
             ]);
         }
+    
         return $this->response->setJSON([
             'status' => true,
-            'icon' => 'success',
-            'title' => 'Success!',
-            'text' => 'Berhasil menambah user',
+            'message' => 'Berhasil menambah user',
         ]);
     }
+    
 
     public function update($id)
     {
@@ -52,24 +46,17 @@ class UserController extends BaseController
             ]);
         }
 
-        $data = [
-            'name' => $this->request->getPost('name'),
-            'role' => $this->request->getPost('role'),
-        ];
+        $data = $this->request->getRawInput();
 
         if (!$model->update($id, $data)) {
             return $this->response->setJSON([
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Failed!',
-                'text' => 'Gagal update user',
+                'message' => 'Gagal update user',
             ]);
         }
         return $this->response->setJSON([
             'status' => true,
-            'icon' => 'success',
-            'title' => 'Success!',
-            'text' => 'Berhasil update user',
+            'message' => 'Berhasil update user',
         ]);
     }
 
@@ -79,9 +66,7 @@ class UserController extends BaseController
         $model->where('id', $id)->delete($id);
         return $this->response->setJSON([
             'status' => true,
-            'icon' => 'success',
-            'title' => 'Success!',
-            'text' => 'Berhasil hapus user',
+            'message' => 'Berhasil hapus user',
         ]);
     }
 }
