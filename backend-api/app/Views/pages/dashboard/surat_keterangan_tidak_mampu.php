@@ -16,6 +16,7 @@
                         <tr>
                           <th>Author</th>
                           <th>Nama</th>
+                          <th>NIK</th>
                           <th>TTL</th>
                           <th>Alamat</th>
                           <th>Pekerjaan</th>

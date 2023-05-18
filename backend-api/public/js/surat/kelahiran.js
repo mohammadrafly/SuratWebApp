@@ -36,21 +36,27 @@ function save() {
     const id = $('#id').val();
     const url = id ? `${base_url}${apiUrl}kelahiran/${id}` : `${base_url}${apiUrl}kelahiran`;
   
-    $.ajax({
-      url,
-      type: 'POST',
-      data: $('#form').serialize(),
-      processData: false,
-      contentType: false,
-      dataType: 'JSON',
-      success: ({ message }) => {
-        alert(message)
-        location.reload()
-      },
-      error: () => {
-        alert('An error occurred while processing your request.');
-      },
-    });
+    if (isFormValid()) {
+        var formData = $('#form').serialize();
+        console.log(formData);
+        $.ajax({
+            url,
+            type: 'POST',
+            data: $('#form').serialize(),
+            processData: false,
+            contentType: false,
+            dataType: 'JSON',
+            success: ({ message }) => {
+              alert(message)
+              location.reload()
+            },
+            error: () => {
+              alert('An error occurred while processing your request.');
+            },
+        });
+    } else {
+        alert('Oops! Sepertinya ada yang terlewat. Mohon pastikan semua input telah diisi.')
+    }
 }
   
 function deleteData(id) {

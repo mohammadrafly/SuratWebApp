@@ -13,7 +13,7 @@
                                         <div class="form-group" id="email-input">
                                             <label for="email">Email</label>
                                             <div>
-                                                <select class="form-control select2" id="author" name="author">
+                                                <select class="form-control select2" id="author" name="author" required>
                                                 <option value="">Select email</option>
                                                 <?php foreach($email as $data): ?>
                                                 <option value="<?= $data['email'] ?>"><?= $data['email'] ?></option>
@@ -23,42 +23,50 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="nama">Nama</label>
-                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Enter nama">
+                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Enter nama" oninput="limitInput(this, 255)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="nik">NIK</label>
-                                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Enter NIK">
+                                            <input type="number" class="form-control" id="nik" name="nik" placeholder="Enter NIK" oninput="limitInput(this, 16)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="jenis_kelamin">Jenis Kelamin</label>
-                                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
                                                 <option value="laki-laki">Laki-Laki</option>
                                                 <option value="perempuan">Perempuan</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="ttl">TTL</label>
-                                            <input type="text" class="form-control" id="ttl" name="ttl" placeholder="Enter TTL">
+                                            <label for="ttl">Tempat, Tanggal Lahir</label>
+                                            <textarea type="text" class="form-control" id="ttl" name="ttl" placeholder="Enter TTL" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="agama">Agama</label>
-                                            <input type="text" class="form-control" id="agama" name="agama" placeholder="Enter agama">
+                                            <select class="form-control" id="agama" name="agama" required>
+                                                <option value="">Select Agama</option>
+                                                <option value="Islam">Islam</option>
+                                                <option value="Kristen">Kristen</option>
+                                                <option value="Katolik">Katolik</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Buddha">Buddha</option>
+                                                <option value="Konghucu">Konghucu</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat_tinggal">Alamat Tinggal</label>
-                                            <input type="text" class="form-control" id="alamat_tinggal" name="alamat_tinggal" placeholder="Enter alamat tinggal">
+                                            <textarea type="text" class="form-control" id="alamat_tinggal" name="alamat_tinggal" placeholder="Enter alamat tinggal" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="tanggal_meninggal">Tanggal Meninggal</label>
-                                            <input type="text" class="form-control" id="tanggal_meninggal" name="tanggal_meninggal" placeholder="Enter tanggal meninggal">
+                                            <input type="date" class="form-control" id="tanggal_meninggal" name="tanggal_meninggal" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat_meninggal">Alamat Meninggal</label>
-                                            <input type="text" class="form-control" id="alamat_meninggal" name="alamat_meninggal" placeholder="Enter alamat meninggal">
+                                            <textarea type="text" class="form-control" id="alamat_meninggal" name="alamat_meninggal" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="meninggal_karena">Meninggal Karena</label>
-                                            <input type="text" class="form-control" id="meninggal_karena" name="meninggal_karena" placeholder="Enter meninggal karena">
+                                            <textarea type="text" class="form-control" id="meninggal_karena" name="meninggal_karena" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="status_ttd">Status TTD</label>

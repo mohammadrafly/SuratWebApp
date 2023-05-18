@@ -9,13 +9,13 @@
                                 </div>
                                 <form id="form">
                                     <div class="modal-body">
-                                        <div id="step-1">
+                                        <div class="step">
                                             <h2>Informasi Wali</h2> 
                                             <input id="id" name="id" hidden>
                                             <div class="form-group" id="email-input">
                                                 <label for="email">Email</label>
                                                 <div>
-                                                    <select class="form-control select2" id="email" name="email">
+                                                    <select class="form-control select2" id="author" name="author" required>
                                                         <option value="">Select email</option>
                                                         <?php foreach($email as $data): ?>
                                                         <option value="<?= $data['email'] ?>"><?= $data['email'] ?></option>
@@ -24,96 +24,109 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="nama_wali">Nama Wali</label>
-                                                <input type="text" class="form-control" id="nama_wali" name="nama_wali">
+                                                <label for="nama_wali">Nama</label>
+                                                <input type="text" class="form-control" id="nama_wali" name="nama_wali" oninput="limitInput(this, 255)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nik">NIK</label>
-                                                <input type="text" class="form-control" id="nik" name="nik">
+                                                <input type="number" class="form-control" id="nik" name="nik" oninput="limitInput(this, 16)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="bin_wali">Bin Wali</label>
-                                                <input type="text" class="form-control" id="bin_wali" name="bin_wali">
+                                                <label for="bin_wali">Bin</label>
+                                                <input type="text" class="form-control" id="bin_wali" name="bin_wali" oninput="limitInput(this, 50)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="ttl_wali">TTL Wali</label>
-                                                <input type="text" class="form-control" id="ttl_wali" name="ttl_wali">
+                                                <label for="ttl_wali">Tempat, Tanggal Lahir</label>
+                                                <textarea type="text" class="form-control" id="ttl_wali" name="ttl_wali" required></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="pekerjaan_wali">Pekerjaan Wali</label>
-                                                <input type="text" class="form-control" id="pekerjaan_wali" name="pekerjaan_wali">
+                                                <label for="pekerjaan">Pekerjaan</label>
+                                                <input type="text" class="form-control" id="pekerjaan_wali" name="pekerjaan_wali" oninput="limitInput(this, 50)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="alamat_wali">Alamat Wali</label>
-                                                <input type="text" class="form-control" id="alamat_wali" name="alamat_wali">
+                                                <label for="alamat_wali">Alamat</label>
+                                                <textarea type="text" class="form-control" id="alamat_wali" name="alamat_wali" required></textarea>
                                             </div>
                                             <button type="button" class="btn btn-primary next-step">Next</button>
                                         </div>
                                         <!-- Step 2: Personal Information -->
-                                        <div id="step-2" class="hidden">
+                                        <div class="step hidden">
                                             <h2>Informasi Calon Perempuan</h2>
                                             <div class="form-group">
-                                                <label for="calon_perempuan">Calon Perempuan</label>
-                                                <input type="text" class="form-control" id="calon_perempuan" name="calon_perempuan">
+                                                <label for="calon_perempuan">Nama</label>
+                                                <input type="text" class="form-control" id="calon_perempuan" name="calon_perempuan" oninput="limitInput(this, 255)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="binti_perempuan">Binti Perempuan</label>
-                                                <input type="text" class="form-control" id="binti_perempuan" name="binti_perempuan">
+                                                <label for="binti_perempuan">Binti</label>
+                                                <input type="text" class="form-control" id="binti_perempuan" name="binti_perempuan" oninput="limitInput(this, 255)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="ttl_perempuan">TTL Perempuan</label>
-                                                <input type="text" class="form-control" id="ttl_perempuan" name="ttl_perempuan">
+                                                <label for="ttl_perempuan">Tempat, Tanggal Lahir</label>
+                                                <textarea type="text" class="form-control" id="ttl_perempuan" name="ttl_perempuan" required></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="agama_perempuan">Agama Perempuan</label>
-                                                <input type="text" class="form-control" id="agama_perempuan" name="agama_perempuan">
+                                                <label for="agama">Agama</label>
+                                                <select class="form-control" id="agama_perempuan" name="agama_perempuan" required>
+                                                    <option value="">Select Agama</option>
+                                                    <option value="Islam">Islam</option>
+                                                    <option value="Kristen">Kristen</option>
+                                                    <option value="Katolik">Katolik</option>
+                                                    <option value="Hindu">Hindu</option>
+                                                    <option value="Buddha">Buddha</option>
+                                                    <option value="Konghucu">Konghucu</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="pekerjaan_perempuan">Pekerjaan Perempuan</label>
-                                                <input type="text" class="form-control" id="pekerjaan_perempuan" name="pekerjaan_perempuan">
+                                                <label for="pekerjaan_perempuan">Pekerjaan</label>
+                                                <input type="text" class="form-control" id="pekerjaan_perempuan" name="pekerjaan_perempuan" oninput="limitInput(this, 50)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="alamat_perempuan">Alamat Perempuan</label>
-                                                <input type="text" class="form-control" id="alamat_perempuan" name="alamat_perempuan">
+                                                <label for="alamat_perempuan">Alamat</label>
+                                                <textarea type="text" class="form-control" id="alamat_perempuan" name="alamat_perempuan" required></textarea>
                                             </div>
                                             <button type="button" class="btn btn-secondary prev-step">Previous</button>
                                             <button type="button" class="btn btn-primary next-step">Next</button>
                                         </div>
-                                        <div id="step-2" class="hidden">
+                                        <div class="step hidden">
                                             <h2>Informasi Calon Laki Laki</h2>
                                             <div class="form-group">
-                                                <label for="nama_laki_laki">Nama Laki-laki</label>
-                                                <input type="text" class="form-control" id="nama_laki_laki" name="nama_laki_laki">
+                                                <label for="nama_laki_laki">Nama</label>
+                                                <input type="text" class="form-control" id="nama_laki_laki" name="nama_laki_laki" oninput="limitInput(this, 255)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="bin_laki_laki">Bin Laki-laki</label>
-                                                <input type="text" class="form-control" id="bin_laki_laki" name="bin_laki_laki">
+                                                <label for="bin_laki_laki">Bin</label>
+                                                <input type="text" class="form-control" id="bin_laki_laki" name="bin_laki_laki" oninput="limitInput(this, 50)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="ttl_laki_laki">TTL Laki-laki</label>
-                                                <input type="text" class="form-control" id="ttl_laki_laki" name="ttl_laki_laki">
+                                                <label for="ttl_laki_laki">Tempat, Tanggal Lahir</label>
+                                                <textarea type="text" class="form-control" id="ttl_laki_laki" name="ttl_laki_laki" required></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="agama_laki_laki">Agama Laki-laki</label>
-                                                <input type="text" class="form-control" id="agama_laki_laki" name="agama_laki_laki">
+                                                <label>Agama</label>
+                                                <select class="form-control" id="agama_laki_laki" name="agama_laki_laki" required>
+                                                    <option value="">Select Agama</option>
+                                                    <option value="Islam">Islam</option>
+                                                    <option value="Kristen">Kristen</option>
+                                                    <option value="Katolik">Katolik</option>
+                                                    <option value="Hindu">Hindu</option>
+                                                    <option value="Buddha">Buddha</option>
+                                                    <option value="Konghucu">Konghucu</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="pekerjaan_laki_laki">Pekerjaan Laki-laki</label>
-                                                <input type="text" class="form-control" id="pekerjaan_laki_laki" name="pekerjaan_laki_laki">
+                                                <label for="pekerjaan">Pekerjaan</label>
+                                                <input type="text" class="form-control" id="pekerjaan_laki_laki" name="pekerjaan_laki_laki" oninput="limitInput(this, 50)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="alamat_laki_laki">Alamat Laki-laki</label>
-                                                <input type="text" class="form-control" id="alamat_laki_laki" name="alamat_laki_laki">
+                                                <label for="alamat_tinggal">Alamat</label>
+                                                <textarea type="text" class="form-control" id="alamat_laki_laki" name="alamat_laki_laki" required></textarea>
                                             </div>
-
-                                            <!-- Add the remaining fields here -->
-
                                             <button type="button" class="btn btn-secondary prev-step">Previous</button>
                                             <button type="button" class="btn btn-primary next-step">Next</button>
                                         </div>
 
                                         <!-- Step 3: Additional Information -->
-                                        <div id="step-4" class="hidden">
+                                        <div class="step hidden">
                                             <!-- Add the remaining fields here -->
                                             <div class="form-group">
                                                 <label for="status_ttd">Status TTD</label>
@@ -124,7 +137,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="disposisi_surat">Disposisi Surat</label>
-                                                <textarea class="form-control" id="disposisi_surat" name="disposisi_surat"></textarea>
+                                                <textarea type="text" class="form-control" id="disposisi_surat" name="disposisi_surat" required></textarea>
                                             </div>
                                             <button type="button" class="btn btn-secondary prev-step">Previous</button>
                                             <button type="button" onclick="save()" class="btn btn-primary">Simpan</button>

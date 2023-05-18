@@ -13,13 +13,68 @@
                                         <div class="form-group" id="email-input">
                                             <label for="email">Email</label>
                                             <div>
-                                                <select class="form-control select2" id="email" name="email">
+                                                <select class="form-control select2" id="author" name="author">
                                                     <option value="">Select email</option>
                                                     <?php foreach($email as $data): ?>
                                                     <option value="<?= $data['email'] ?>"><?= $data['email'] ?></option>
                                                     <?php endforeach ?>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nama">Nama</label>
+                                            <input type="text" class="form-control" id="nama" name="nama" oninput="limitInput(this, 225)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="binti">Binti</label>
+                                            <input type="text" class="form-control" id="binti" name="binti" oninput="limitInput(this, 50)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ttl">Tempat, Tanggal Lahir</label>
+                                            <textarea type="text" class="form-control" id="ttl" name="ttl"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kewarganegaraan">Kewarganegaraan</label>
+                                            <select class="form-control" id="kewarganegaraan" name="kewarganegaraan" required>
+                                                <option value="">Pilih Kewarganegaraan</option>
+                                                <option value="WNI">Warga Negara Indonesia (WNI)</option>
+                                                <option value="WNA">Warga Negara Asing (WNA)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="agama">Agama</label>
+                                            <select class="form-control" id="agama" name="agama" required>
+                                                <option value="">Select Agama</option>
+                                                <option value="Islam">Islam</option>
+                                                <option value="Kristen">Kristen</option>
+                                                <option value="Katolik">Katolik</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Buddha">Buddha</option>
+                                                <option value="Konghucu">Konghucu</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pekerjaan">Pekerjaan</label>
+                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" oninput="limitInput(this, 50)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat</label>
+                                            <textarea type="text" class="form-control" id="alamat" name="alamat"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pernyataan">Pernyataan</label>
+                                            <textarea type="text" class="form-control" id="pernyataan" name="pernyataan"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="status_ttd">Status TTD</label>
+                                            <select class="form-control" id="status_ttd" name="status_ttd">
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disposisi_surat">Disposisi Surat</label>
+                                            <textarea type="text" class="form-control" id="disposisi_surat" name="disposisi_surat" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

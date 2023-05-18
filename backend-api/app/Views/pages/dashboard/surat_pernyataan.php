@@ -33,13 +33,13 @@
                         <tr>
                             <td><?= $data['author'] ?></td>
                             <td><?= $data['nama'] ?></td>
-                            <td><?= $data['nik'] ?></td>
+                            <td><?= $data['binti'] ?></td>
+                            <td><?= $data['ttl'] ?></td>
+                            <td><?= $data['kewarganegaraan'] ?></td>
+                            <td><?= $data['agama'] ?></td>
+                            <td><?= $data['pekerjaan'] ?></td>
                             <td><?= $data['alamat'] ?></td>
-                            <td><?= $data['kelurahan'] ?></td>
-                            <td><?= $data['kecamatan'] ?></td>
-                            <td><?= $data['kabupaten'] ?></td>
-                            <td><?= $data['jumlah_berkas'] ?></td>
-                            <td><?= $data['keterangan'] ?></td>
+                            <td><?= $data['pernyataan'] ?></td>
                             <td><?= $data['status_ttd'] ?></td>
                             <td><?= $data['disposisi_surat'] ?></td>
                           <td>

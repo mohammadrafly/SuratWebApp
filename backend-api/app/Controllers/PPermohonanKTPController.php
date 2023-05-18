@@ -30,12 +30,12 @@ class PPermohonanKTPController extends BaseController
         if (!$model->insert($data)) {
             $response = [
                 'status' => false,
-                'text' => 'Gagal menambahkan surat pengantar permohonan ktp'
+                'message' => 'Gagal menambahkan surat pengantar permohonan ktp'
             ];
         } else {
             $response = [
                 'status' => true,
-                'text' => 'Berhasil menambahkan surat pengantar permohonan ktp'
+                'message' => 'Berhasil menambahkan surat pengantar permohonan ktp'
             ];
         }
 
@@ -57,12 +57,12 @@ class PPermohonanKTPController extends BaseController
         if (!$model->update($id, $data)) {
             $response = [
                 'status' => false,
-                'text' => 'Gagal update surat pengantar permohonan ktp'
+                'message' => 'Gagal update surat pengantar permohonan ktp'
             ];
         } else {
             $response = [
                 'status' => true,
-                'text' => 'Berhasil surat update pengantar permohonan ktp'
+                'message' => 'Berhasil surat update pengantar permohonan ktp'
             ];
         }
 
@@ -75,7 +75,7 @@ class PPermohonanKTPController extends BaseController
         $model->where('id', $id)->delete($id);
         return $this->response->setJSON([
             'status' => true,
-            'text' => 'Berhasil delete surat pengantar permohonan ktp'
+            'message' => 'Berhasil delete surat pengantar permohonan ktp'
         ]);
     }
 

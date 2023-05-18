@@ -108,9 +108,12 @@ class AuthController extends BaseController
             return view('pages/auth/SignIn');
         }
 
-        $checkPoint = $model->where('email', $email)->first();
+        $checkPoint = $model->like('email', $email)
+                            ->orLike('nik', $email)
+                            ->get()
+                            ->getResultArray();
         
-        if (!$checkPoint) {
+        if (!$checkPoint[0]) {
             return $this->response->setJSON([
                 'status' => false,
                 'icon' => 'error',
@@ -119,19 +122,19 @@ class AuthController extends BaseController
             ]);
         }
 
-        if (password_verify($password, $checkPoint['password'])) {
+        if (password_verify($password, $checkPoint[0]['password'])) {
             if ($isFrontEnd) {
                 $token = $this->generateToken(100);
                 $data['token'] = $token;
-                $model->update($checkPoint['id'], $data);
+                $model->update($checkPoint[0]['id'], $data);
             }
-            $this->setSession($checkPoint);
+            $this->setSession($checkPoint[0]);
             return $this->response->setJSON([
                 'status' => true, 
                 'icon' => 'success', 
                 'title' => 'Success!', 
                 'text' => 'Login berhasil.',
-                'dataUser' => $checkPoint,
+                'dataUser' => $checkPoint[0],
                 'token' => $isFrontEnd ? $token : null
             ]);
         } else {

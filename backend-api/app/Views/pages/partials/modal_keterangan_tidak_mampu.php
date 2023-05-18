@@ -13,7 +13,7 @@
                                         <div class="form-group" id="email-input">
                                             <label for="email">Email</label>
                                             <div>
-                                                <select class="form-control select2" id="email" name="email">
+                                                <select class="form-control select2" id="author" name="author">
                                                     <option value="">Select email</option>
                                                     <?php foreach($email as $data): ?>
                                                     <option value="<?= $data['email'] ?>"><?= $data['email'] ?></option>
@@ -22,45 +22,40 @@
                                             </div>
                                         </div>
 
-                                        <!-- Additional fields -->
-                                        <div class="form-group">
-                                            <label for="author">Author</label>
-                                            <input type="text" class="form-control" id="author" name="author">
-                                        </div>
-
                                         <div class="form-group">
                                             <label for="nama">Nama</label>
-                                            <input type="text" class="form-control" id="nama" name="nama">
+                                            <input type="text" class="form-control" id="nama" name="nama" oninput="limitInput(this, 255)" required>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="nik">NIK</label>
-                                            <input type="text" class="form-control" id="nik" name="nik">
+                                            <input type="number" class="form-control" id="nik" name="nik" oninput="limitInput(this, 16)" required>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="ttl">TTL</label>
-                                            <input type="text" class="form-control" id="ttl" name="ttl">
+                                            <label for="ttl">Tempat, Tanggal Lahir</label>
+                                            <textarea type="text" class="form-control" id="ttl" name="ttl" placeholder="Enter TTL" required></textarea>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="alamat">Alamat</label>
-                                            <input type="text" class="form-control" id="alamat" name="alamat">
+                                            <textarea type="text" class="form-control" id="alamat" name="alamat" placeholder="Enter alamat tinggal" required></textarea>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="pekerjaan">Pekerjaan</label>
-                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan">
+                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" oninput="limitInput(this, 50)" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="status_ttd">Status TTD</label>
-                                            <input type="text" class="form-control" id="status_ttd" name="status_ttd">
+                                            <select class="form-control" id="status_ttd" name="status_ttd">
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="disposisi_surat">Disposisi Surat</label>
-                                            <input type="text" class="form-control" id="disposisi_surat" name="disposisi_surat">
+                                            <textarea type="text" class="form-control" id="disposisi_surat" name="disposisi_surat" required></textarea>
                                         </div>
                                         <!-- End of additional fields -->
                                     </div>

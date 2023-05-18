@@ -78,46 +78,4 @@
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
 <script src="<?= base_url('js/surat/keterangan_wali_nikah.js') ?>"></script>
-<script>
-// Get the form steps and buttons
-const form = document.getElementById('form');
-const steps = Array.from(form.getElementsByClassName('modal-body')[0].children);
-const nextButtons = Array.from(form.getElementsByClassName('next-step'));
-const prevButtons = Array.from(form.getElementsByClassName('prev-step'));
-
-// Show the next step
-function showNextStep() {
-    const currentStep = getCurrentStep();
-    const nextStep = currentStep + 1;
-    if (nextStep < steps.length) {
-        steps[currentStep].classList.add('hidden');
-        steps[nextStep].classList.remove('hidden');
-    }
-}
-
-// Show the previous step
-function showPrevStep() {
-    const currentStep = getCurrentStep();
-    const prevStep = currentStep - 1;
-    if (prevStep >= 0) {
-        steps[currentStep].classList.add('hidden');
-        steps[prevStep].classList.remove('hidden');
-    }
-}
-
-// Get the index of the current step
-function getCurrentStep() {
-    return steps.findIndex((step) => !step.classList.contains('hidden'));
-}
-
-// Attach event listeners to the buttons
-nextButtons.forEach((button) => {
-    button.addEventListener('click', showNextStep);
-});
-
-prevButtons.forEach((button) => {
-    button.addEventListener('click', showPrevStep);
-});
-
-</script>
 <?= $this->endSection() ?>

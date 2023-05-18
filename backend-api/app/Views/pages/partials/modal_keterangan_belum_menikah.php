@@ -13,7 +13,7 @@
                                         <div class="form-group" id="email-input">
                                             <label for="email">Email</label>
                                             <div>
-                                                <select class="form-control select2" id="email" name="email">
+                                                <select class="form-control select2" id="author" name="author" required>
                                                     <option value="">Select email</option>
                                                     <?php foreach($email as $data): ?>
                                                     <option value="<?= $data['email'] ?>"><?= $data['email'] ?></option>
@@ -23,47 +23,70 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="nama">Nama</label>
-                                            <input type="text" class="form-control" id="nama" name="nama" required>
+                                            <input type="text" class="form-control" id="nama" name="nama" oninput="limitInput(this, 255)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="nik">NIK</label>
-                                            <input type="text" class="form-control" id="nik" name="nik" required>
+                                            <input type="number" class="form-control" id="nik" name="nik" oninput="limitInput(this, 16)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="jenis_kelamin">Jenis Kelamin</label>
-                                            <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                                                <option value="laki-laki">Laki-Laki</option>
+                                                <option value="perempuan">Perempuan</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="ttl">TTL</label>
-                                            <input type="text" class="form-control" id="ttl" name="ttl" required>
+                                            <label for="ttl">Tempat, Tanggal Lahir</label>
+                                            <textarea type="text" class="form-control" id="ttl" name="ttl" placeholder="Enter TTL" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="agama">Agama</label>
-                                            <input type="text" class="form-control" id="agama" name="agama" required>
+                                            <select class="form-control" id="agama" name="agama" required>
+                                                <option value="">Select Agama</option>
+                                                <option value="Islam">Islam</option>
+                                                <option value="Kristen">Kristen</option>
+                                                <option value="Katolik">Katolik</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Buddha">Buddha</option>
+                                                <option value="Konghucu">Konghucu</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat_tinggal">Alamat Tinggal</label>
-                                            <input type="text" class="form-control" id="alamat_tinggal" name="alamat_tinggal" required>
+                                            <textarea type="text" class="form-control" id="alamat_tinggal" name="alamat_tinggal" placeholder="Enter alamat tinggal" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="status_perkawinan">Status Perkawinan</label>
-                                            <input type="text" class="form-control" id="status_perkawinan" name="status_perkawinan" required>
+                                            <select class="form-control" id="status_perkawinan" name="status_perkawinan" required>
+                                                <option value="">Pilih Status Perkawinan</option>
+                                                <option value="Belum Menikah">Belum Menikah</option>
+                                                <option value="Menikah">Menikah</option>
+                                                <option value="Cerai">Cerai</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="pekerjaan">Pekerjaan</label>
-                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" required>
+                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" oninput="limitInput(this, 50)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="kewarganegaraan">Kewarganegaraan</label>
-                                            <input type="text" class="form-control" id="kewarganegaraan" name="kewarganegaraan" required>
+                                            <select class="form-control" id="kewarganegaraan" name="kewarganegaraan" required>
+                                                <option value="">Pilih Kewarganegaraan</option>
+                                                <option value="WNI">Warga Negara Indonesia (WNI)</option>
+                                                <option value="WNA">Warga Negara Asing (WNA)</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="status_ttd">Status TTD</label>
-                                            <input type="text" class="form-control" id="status_ttd" name="status_ttd" required>
+                                            <select class="form-control" id="status_ttd" name="status_ttd">
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="disposisi_surat">Disposisi Surat</label>
-                                            <input type="text" class="form-control" id="disposisi_surat" name="disposisi_surat" required>
+                                            <textarea type="text" class="form-control" id="disposisi_surat" name="disposisi_surat" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

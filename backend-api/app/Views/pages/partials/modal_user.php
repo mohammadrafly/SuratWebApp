@@ -12,27 +12,27 @@
                                         <input id="id" name="id" hidden>
                                         <div class="form-group" id="email-input">
                                             <label for="email">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" oninput="limitInput(this, 50)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" oninput="limitInput(this, 225)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">NIK</label>
-                                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Enter nik">
+                                            <input type="number" class="form-control" id="nik" name="nik" placeholder="Enter nik" oninput="limitInput(this, 16)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Alamat</label>
-                                            <textarea type="text" class="form-control" id="alamat" name="alamat" placeholder="Enter alamat"></textarea>
+                                            <textarea type="text" class="form-control" id="alamat" name="alamat" placeholder="Enter alamat" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Nomor HP</label>
-                                            <input type="number" class="form-control" id="nomor_hp" name="nomor_hp" placeholder="6281XXXXX">
+                                            <input type="number" class="form-control" id="nomor_hp" name="nomor_hp" placeholder="6281XXXXX" oninput="limitInput(this, 13)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="role">Role</label>
-                                                <select class="form-control" id="role" name="role">
+                                                <select class="form-control" id="role" name="role" required>
                                                 <option value="admin">Admin</option>
                                                 <option value="warga">Warga</option>
                                                 <option value="kepala_desa">Kepala Desa</option>
@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="form-group" id="password-input">
                                             <label for="password">Password</label>
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

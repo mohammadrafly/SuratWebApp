@@ -13,13 +13,58 @@
                                         <div class="form-group" id="email-input">
                                             <label for="email">Email</label>
                                             <div>
-                                                <select class="form-control select2" id="email" name="email">
+                                                <select class="form-control select2" id="author" name="author">
                                                     <option value="">Select email</option>
                                                     <?php foreach($email as $data): ?>
                                                     <option value="<?= $data['email'] ?>"><?= $data['email'] ?></option>
                                                     <?php endforeach ?>
                                                 </select>
                                             </div>
+                                        </div>
+
+                                        <!-- Additional fields -->
+                                        <div class="form-group">
+                                            <label for="nama">Nama</label>
+                                            <input type="text" class="form-control" id="nama" name="nama" oninput="limitInput(this, 255)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nik">NIK</label>
+                                            <input type="number" class="form-control" id="nik" name="nik" oninput="limitInput(this, 16)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat</label>
+                                            <textarea type="text" class="form-control" id="alamat" name="alamat"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kelurahan">Kelurahan</label>
+                                            <input type="text" class="form-control" id="kelurahan" name="kelurahan" oninput="limitInput(this, 50)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kecamatan">Kecamatan</label>
+                                            <input type="text" class="form-control" id="kecamatan" name="kecamatan" oninput="limitInput(this, 50)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kabupaten">Kabupaten</label>
+                                            <input type="text" class="form-control" id="kabupaten" name="kabupaten" oninput="limitInput(this, 50)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jumlah_berkas">Jumlah Berkas</label>
+                                            <input type="number" class="form-control" id="jumlah_berkas" name="jumlah_berkas" oninput="limitInput(this, 2)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="keterangan">Keterangan</label>
+                                            <textarea class="form-control" id="keterangan" name="keterangan"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="status_ttd">Status TTD</label>
+                                            <select class="form-control" id="status_ttd" name="status_ttd">
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disposisi_surat">Disposisi Surat</label>
+                                            <textarea type="text" class="form-control" id="disposisi_surat" name="disposisi_surat" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

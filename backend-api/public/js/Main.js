@@ -1,6 +1,55 @@
 const base_url = 'http://localhost:8080/';
 const apiUrl = 'api/V1/';
 
+function isFormValid() {
+    var requiredFields = $('#form').find(':input[required]');
+    var isValid = true;
+
+    requiredFields.each(function() {
+        if (!$(this).val()) {
+            isValid = false;
+            return false;
+        }
+    });
+
+    return isValid;
+}
+
+const form = document.getElementById('form');
+const steps = Array.from(form.getElementsByClassName('modal-body')[0].children);
+const nextButtons = Array.from(form.getElementsByClassName('next-step'));
+const prevButtons = Array.from(form.getElementsByClassName('prev-step'));
+
+function showNextStep() {
+    const currentStep = getCurrentStep();
+    const nextStep = currentStep + 1;
+    if (nextStep < steps.length) {
+        steps[currentStep].classList.add('hidden');
+        steps[nextStep].classList.remove('hidden');
+    }
+}
+
+function showPrevStep() {
+    const currentStep = getCurrentStep();
+    const prevStep = currentStep - 1;
+    if (prevStep >= 0) {
+        steps[currentStep].classList.add('hidden');
+        steps[prevStep].classList.remove('hidden');
+    }
+}
+
+function getCurrentStep() {
+    return steps.findIndex((step) => !step.classList.contains('hidden'));
+}
+
+nextButtons.forEach((button) => {
+    button.addEventListener('click', showNextStep);
+});
+
+prevButtons.forEach((button) => {
+    button.addEventListener('click', showPrevStep);
+});
+
 function signOut() {
     Swal.fire({
         title: 'Are you sure?',
