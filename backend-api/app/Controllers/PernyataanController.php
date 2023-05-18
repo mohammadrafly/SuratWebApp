@@ -4,34 +4,38 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SPernyataan;
+use App\Models\Users;
 
 class PernyataanController extends BaseController
 {
     public function index()
     {
         $model = new SPernyataan();
+        $user = new Users();
         if ($this->request->getMethod(true) !== 'POST') {
             $isFrontEnd = $this->request->getVar('frontend');
-            $data = ['content' => $model->findAll()];
+            $data = [
+                'content' => $model->findAll(),
+                'title' => 'Pernyataan',
+                'email' => $user->where('role', 'warga')->findAll(),
+            ];
             return $isFrontEnd ? $this->response->setJSON($model->findAll()) : view('pages/dashboard/surat_pernyataan',$data);
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->insert($data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
-                'text' => 'Gagal menambahkan surat pernyataan'
+                'message' => 'Gagal menambahkan surat pernyataan'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
-                'text' => 'Berhasil menambahkan surat pernyataan'
+                'message' => 'Berhasil menambahkan surat pernyataan'
             ];
         }
 
@@ -46,21 +50,19 @@ class PernyataanController extends BaseController
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->update($id, $data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
-                'text' => 'Gagal update surat pernyataan'
+                'message' => 'Gagal update surat pernyataan'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
-                'text' => 'Berhasil surat update pernyataan'
+                'message' => 'Berhasil surat update pernyataan'
             ];
         }
 
@@ -73,9 +75,7 @@ class PernyataanController extends BaseController
         $model->where('id', $id)->delete($id);
         return $this->response->setJSON([
             'status' => true,
-            'icon' => 'success',
-            'title' => 'Success!',
-            'text' => 'Berhasil delete surat pernyataan'
+            'message' => 'Berhasil delete surat pernyataan'
         ]);
     }
 

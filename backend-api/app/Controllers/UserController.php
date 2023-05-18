@@ -20,6 +20,11 @@ class UserController extends BaseController
         }
     
         $data = $this->request->getRawInput();
+        $password = $data['password'];
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $data['password'] = $hashedPassword;
 
         if (!$model->insert($data)) {
             return $this->response->setJSON([

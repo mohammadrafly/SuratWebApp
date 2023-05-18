@@ -16,6 +16,10 @@ class SuratPengantarNikah extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
+            'author' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'nama_wali' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',

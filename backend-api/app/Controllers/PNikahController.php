@@ -4,34 +4,38 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SPengantarNikah;
+use App\Models\Users;
 
 class PNikahController extends BaseController
 {
     public function index()
     {
         $model = new SPengantarNikah();
+        $user = new Users();
         if ($this->request->getMethod(true) !== 'POST') {
             $isFrontEnd = $this->request->getVar('frontend');
-            $data = ['content' => $model->findAll()];
+            $data = [
+                'content' => $model->findAll(),
+                'title' => 'Pengantar Nikah',
+                'email' => $user->where('role', 'warga')->findAll(),
+            ];
             return $isFrontEnd ? $this->response->setJSON($model->findAll()) : view('pages/dashboard/surat_pengantar_nikah',$data);
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->insert($data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
-                'text' => 'Gagal menambahkan surat pengantar nikah'
+                'message' => 'Gagal menambahkan surat pengantar nikah'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
-                'text' => 'Berhasil menambahkan surat pengantar nikah'
+                'message' => 'Berhasil menambahkan surat pengantar nikah'
             ];
         }
 
@@ -46,21 +50,19 @@ class PNikahController extends BaseController
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->update($id, $data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
-                'text' => 'Gagal update surat pengantar nikah'
+                'message' => 'Gagal update surat pengantar nikah'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
-                'text' => 'Berhasil surat update pengantar nikah'
+                'message' => 'Berhasil surat update pengantar nikah'
             ];
         }
 
@@ -73,9 +75,7 @@ class PNikahController extends BaseController
         $model->where('id', $id)->delete($id);
         return $this->response->setJSON([
             'status' => true,
-            'icon' => 'success',
-            'title' => 'Success!',
-            'text' => 'Berhasil delete surat pengantar nikah'
+            'message' => 'Berhasil delete surat pengantar nikah'
         ]);
     }
 

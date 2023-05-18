@@ -4,33 +4,37 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SPengantarPermohonanKTP;
+use App\Models\Users;
 
 class PPermohonanKTPController extends BaseController
 {
     public function index()
     {
         $model = new SPengantarPermohonanKTP();
+        $user = new Users();
         if ($this->request->getMethod(true) !== 'POST') {
             $isFrontEnd = $this->request->getVar('frontend');
-            $data = ['content' => $model->findAll()];
+            $data = [
+                'content' => $model->findAll(),
+                'title' => 'Pengantar Permohonan KTP',
+                'email' => $user->where('role', 'warga')->findAll(),
+            ];
             return $isFrontEnd ? $this->response->setJSON($model->findAll()) : view('pages/dashboard/surat_pengantar_permohonan_ktp',$data);
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->insert($data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
                 'text' => 'Gagal menambahkan surat pengantar permohonan ktp'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
                 'text' => 'Berhasil menambahkan surat pengantar permohonan ktp'
             ];
         }
@@ -46,20 +50,18 @@ class PPermohonanKTPController extends BaseController
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->update($id, $data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
                 'text' => 'Gagal update surat pengantar permohonan ktp'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
                 'text' => 'Berhasil surat update pengantar permohonan ktp'
             ];
         }
@@ -73,8 +75,6 @@ class PPermohonanKTPController extends BaseController
         $model->where('id', $id)->delete($id);
         return $this->response->setJSON([
             'status' => true,
-            'icon' => 'success',
-            'title' => 'Success!',
             'text' => 'Berhasil delete surat pengantar permohonan ktp'
         ]);
     }

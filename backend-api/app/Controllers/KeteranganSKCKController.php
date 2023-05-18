@@ -4,34 +4,38 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SKeteranganSKCK;
+use App\Models\Users;
 
 class KeteranganSKCKController extends BaseController
 {
     public function index()
     {
         $model = new SKeteranganSKCK();
+        $user = new Users();
         if ($this->request->getMethod(true) !== 'POST') {
             $isFrontEnd = $this->request->getVar('frontend');
-            $data = ['content' => $model->findAll()];
+            $data = [
+                'content' => $model->findAll(),
+                'title' => 'Keterangan SKCK',
+                'email' => $user->where('role', 'warga')->findAll(),
+            ];
             return $isFrontEnd ? $this->response->setJSON($model->findAll()) : view('pages/dashboard/surat_keterangan_skck',$data);
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->insert($data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
-                'text' => 'Gagal menambahkan surat keterangan skck'
+                'message' => 'Gagal menambahkan surat keterangan skck'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
-                'text' => 'Berhasil menambahkan surat keterangan skck'
+                'message' => 'Berhasil menambahkan surat keterangan skck'
             ];
         }
 
@@ -46,21 +50,19 @@ class KeteranganSKCKController extends BaseController
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->update($id, $data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
-                'text' => 'Gagal update surat keterangan skck'
+                'message' => 'Gagal update surat keterangan skck'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
-                'text' => 'Berhasil surat update keterangan skck'
+                'message' => 'Berhasil surat update keterangan skck'
             ];
         }
 
@@ -73,9 +75,7 @@ class KeteranganSKCKController extends BaseController
         $model->where('id', $id)->delete($id);
         return $this->response->setJSON([
             'status' => true,
-            'icon' => 'success',
-            'title' => 'Success!',
-            'text' => 'Berhasil delete surat keterangan skck'
+            'message' => 'Berhasil delete surat keterangan skck'
         ]);
     }
 

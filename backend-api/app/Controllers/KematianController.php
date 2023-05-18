@@ -4,34 +4,38 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SKematian;
+use App\Models\Users;
 
 class KematianController extends BaseController
 {
     public function index()
     {
         $model = new SKematian();
+        $user = new Users();
         if ($this->request->getMethod(true) !== 'POST') {
             $isFrontEnd = $this->request->getVar('frontend');
-            $data = ['content' => $model->findAll()];
+            $data = [
+                'content' => $model->findAll(),
+                'title' => 'Kematian',
+                'email' => $user->where('role', 'warga')->findAll(),
+            ];
             return $isFrontEnd ? $this->response->setJSON($model->findAll()) : view('pages/dashboard/surat_kematian',$data);
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->insert($data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
-                'text' => 'Gagal menambahkan surat kematian'
+                'message' => 'Gagal menambahkan surat kematian'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
-                'text' => 'Berhasil menambahkan surat kematian'
+                'message' => 'Berhasil menambahkan surat kematian'
             ];
         }
 
@@ -46,21 +50,19 @@ class KematianController extends BaseController
         }
 
         $data = $this->request->getRawInput();
-        $data = json_decode(file_get_contents('php://input'), true);
+        if ($this->request->getVar('frontend')) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
 
         if (!$model->update($id, $data)) {
             $response = [
                 'status' => false,
-                'icon' => 'error',
-                'title' => 'Error!',
-                'text' => 'Gagal update kematian'
+                'message' => 'Gagal update kematian'
             ];
         } else {
             $response = [
                 'status' => true,
-                'icon' => 'success',
-                'title' => 'Success!',
-                'text' => 'Berhasil update kematian'
+                'message' => 'Berhasil update kematian'
             ];
         }
 
@@ -73,9 +75,7 @@ class KematianController extends BaseController
         $model->where('id', $id)->delete($id);
         return $this->response->setJSON([
             'status' => true,
-            'icon' => 'success',
-            'title' => 'Success!',
-            'text' => 'Berhasil delete kematian'
+            'message' => 'Berhasil delete kematian'
         ]);
     }
 
