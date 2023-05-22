@@ -52,6 +52,11 @@ class User extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'status' => [
+                'type' => 'ENUM("unverified", "verified")',
+                'default' => 'unverified',
+                'null' => false,
+            ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),

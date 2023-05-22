@@ -23,7 +23,8 @@ class Users extends Model
         'foto_ktp',
         'password',
         'role',
-        'token'
+        'token',
+        'status',
     ];
 
     // Dates

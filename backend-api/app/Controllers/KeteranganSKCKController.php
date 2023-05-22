@@ -13,13 +13,12 @@ class KeteranganSKCKController extends BaseController
         $model = new SKeteranganSKCK();
         $user = new Users();
         if ($this->request->getMethod(true) !== 'POST') {
-            $isFrontEnd = $this->request->getVar('frontend');
             $data = [
                 'content' => $model->findAll(),
                 'title' => 'Keterangan SKCK',
                 'email' => $user->where('role', 'warga')->findAll(),
             ];
-            return $isFrontEnd ? $this->response->setJSON($model->findAll()) : view('pages/dashboard/surat_keterangan_skck',$data);
+            return view('pages/dashboard/surat_keterangan_skck',$data);
         }
 
         $data = $this->request->getRawInput();
@@ -83,5 +82,31 @@ class KeteranganSKCKController extends BaseController
     {
         $model = new SKeteranganSKCK();
         return $this->response->setJSON($model->where('author', $email)->findAll());
+    }
+
+    public function getAll()
+    {
+        $model = new SKeteranganSKCK();
+        return $this->response->setJSON($model->findAll());
+    }
+
+    public function getSingle($id)
+    {
+        $model = new SKeteranganSKCK();
+        return $this->response->setJSON($model->find($id));
+    }
+
+    public function insert()
+    {
+        $model = new SKeteranganSKCK();
+        $data = $this->request->getRawInput();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if ($model->insert($data)) {
+            return $this->response->setJSON([
+                'status' => true,
+                'text' => 'Berhasil membuat surat'
+            ]);
+        }
     }
 }

@@ -1,10 +1,46 @@
 <resources>
-    <string name="app_name">Surat Desa App</string>
-    <string name="textview">SURAT DESA APP</string>
+
+    <string name="nik">Nomor Induk Kependudukan</string>
+    <string name="password">Kata Sandi</string>
+    <string name="login">Masuk</string>
+    <string name="register">Belum punya akun? daftar disini.</string>
+    <string name="do_regiter">Daftar</string>
+    <string name="back_to_login">Kembali ke halama utama</string>
+    <string name="alt">Logo</string>
+    <string name="name">nama lengkap</string>
+    <string name="nama">Nama Lengkap</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="name">Full Name</string>
-    <string name="token" />
+    <string name="alamat">Alamat</string>
+    <string name="upload_file">Upload Foto KTP</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="show_password">Tampilkan Kata Sandi</string>
+    <string name="home_button">Home</string>
+    <string name="button_profile">Profile</string>
+    <string name="button_surat">Surat</string>
+    <string name="button_home">Home</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="setting_button">Setting</string>
+    <string name="scroll" />
+    <string name="scroll_view">scroll</string>
 </resources>

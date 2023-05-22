@@ -13,13 +13,12 @@ class KematianController extends BaseController
         $model = new SKematian();
         $user = new Users();
         if ($this->request->getMethod(true) !== 'POST') {
-            $isFrontEnd = $this->request->getVar('frontend');
             $data = [
                 'content' => $model->findAll(),
                 'title' => 'Kematian',
                 'email' => $user->where('role', 'warga')->findAll(),
             ];
-            return $isFrontEnd ? $this->response->setJSON($model->findAll()) : view('pages/dashboard/surat_kematian',$data);
+            return view('pages/dashboard/surat_kematian',$data);
         }
 
         $data = $this->request->getRawInput();
@@ -83,5 +82,31 @@ class KematianController extends BaseController
     {
         $model = new SKematian();
         return $this->response->setJSON($model->where('author', $email)->findAll());
+    }
+
+    public function getAll()
+    {
+        $model = new SKematian();
+        return $this->response->setJSON($model->findAll());
+    }
+
+    public function getSingle($id)
+    {
+        $model = new SKematian();
+        return $this->response->setJSON($model->find($id));
+    }
+
+    public function insert()
+    {
+        $model = new SKematian();
+        $data = $this->request->getRawInput();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if ($model->insert($data)) {
+            return $this->response->setJSON([
+                'status' => true,
+                'text' => 'Berhasil membuat surat'
+            ]);
+        }
     }
 }
