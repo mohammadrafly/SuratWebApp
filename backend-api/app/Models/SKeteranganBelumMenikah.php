@@ -26,6 +26,7 @@ class SKeteranganBelumMenikah extends Model
         'pekerjaan',
         'kewarganegaraan',
         'status_ttd',
+        'catatan',
         'disposisi_surat',
     ];
 

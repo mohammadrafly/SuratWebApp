@@ -26,6 +26,7 @@ class SKematian extends Model
         'alamat_meninggal',
         'meninggal_karena',
         'status_ttd',
+        'catatan',
         'disposisi_surat'
     ];
 

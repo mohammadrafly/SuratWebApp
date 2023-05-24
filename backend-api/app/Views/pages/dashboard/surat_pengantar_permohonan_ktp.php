@@ -25,6 +25,7 @@
                           <th>Keterangan</th>
                           <th>Status TTD</th>
                           <th>Disposisi Surat</th>
+                          <th>Catatan</th>
                           <th>Opsi</th>
                         </tr>
                       </thead>
@@ -42,6 +43,7 @@
                             <td><?= $data['keterangan'] ?></td>
                             <td><?= $data['status_ttd'] ?></td>
                             <td><?= $data['disposisi_surat'] ?></td>
+                            <td><?= $data['catatan'] ?></td>
                           <td>
                             <button onclick="deleteData(<?= $data['id'] ?>)" class="btn btn-danger">Hapus</button>
                             <button onclick="edit(<?= $data['id'] ?>)" class="btn btn-primary">Edit</button>

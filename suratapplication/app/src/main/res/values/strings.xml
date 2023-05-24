@@ -43,4 +43,15 @@
     <string name="setting_button">Setting</string>
     <string name="scroll" />
     <string name="scroll_view">scroll</string>
+    <string name="titleNik">Nomor Induk Kewarganegaraan</string>
+    <string name="titlePassword">Kata Sandi</string>
+    <string name="titleEmail">Email</string>
+    <string name="titleName">Nama Lengkap</string>
+    <string name="titleNomorHP">Nomor Handphone</string>
+    <string name="titleAlamat">Alamat</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_dashboard">Surat</string>
+    <string name="title_notifications">Akun</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

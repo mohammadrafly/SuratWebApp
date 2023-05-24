@@ -64,6 +64,10 @@ class SuratKematian extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'catatan' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),

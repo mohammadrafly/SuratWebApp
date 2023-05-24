@@ -42,6 +42,7 @@ class User extends Migration
             'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+                'null' => true
             ],
             'role' => [
                 'type' => 'ENUM("admin","warga","kepala_desa")',

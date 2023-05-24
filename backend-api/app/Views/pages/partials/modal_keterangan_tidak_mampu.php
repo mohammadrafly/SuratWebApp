@@ -55,7 +55,16 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="disposisi_surat">Disposisi Surat</label>
-                                            <textarea type="text" class="form-control" id="disposisi_surat" name="disposisi_surat" required></textarea>
+                                            <select class="form-control" id="disposisi_surat" name="disposisi_surat">
+                                                <option value="antrian">Antrian</option>
+                                                <option value="proses">Proses</option>
+                                                <option value="persetujuan">Persetujuan</option>
+                                                <option value="selesai">Selesai</option>
+                                                <option value="ditolak">Ditolak</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">Catatan</label>
+                                            <input type="text" class="form-control" id="catatan" name="catatan" placeholder="Enter disposisi surat">
                                         </div>
                                         <!-- End of additional fields -->
                                     </div>

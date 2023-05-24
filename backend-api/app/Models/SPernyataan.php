@@ -25,6 +25,7 @@ class SPernyataan extends Model
         'alamat',
         'pernyataan',
         'status_ttd',
+        'catatan',
         'disposisi_surat'
     ];
 

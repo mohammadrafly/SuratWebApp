@@ -25,6 +25,7 @@ class SKelahiran extends Model
         'alamat_anak',
         'nik',
         'status_ttd',
+        'catatan',
         'disposisi_surat'
     ];
 

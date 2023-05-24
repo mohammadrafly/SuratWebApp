@@ -35,6 +35,7 @@ class SPengantarNikah extends Model
         'pekerjaan_laki_laki',
         'alamat_laki_laki',
         'status_ttd',
+        'catatan',
         'disposisi_surat',
     ];
 

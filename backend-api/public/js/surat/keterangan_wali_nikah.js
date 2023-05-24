@@ -8,27 +8,28 @@ function edit(id) {
         dataType: 'JSON',
         success: function(respond) {
             const {
-            author,
-            nama_wali,
-            nik,
-            bin_wali,
-            ttl_wali,
-            pekerjaan_wali,
-            alamat_wali,
-            calon_perempuan,
-            binti_perempuan,
-            ttl_perempuan,
-            agama_perempuan,
-            pekerjaan_perempuan,
-            alamat_perempuan,
-            nama_laki_laki,
-            bin_laki_laki,
-            ttl_laki_laki,
-            agama_laki_laki,
-            pekerjaan_laki_laki,
-            alamat_laki_laki,
-            status_ttd,
-            disposisi_surat
+                catatan,
+                author,
+                nama_wali,
+                nik,
+                bin_wali,
+                ttl_wali,
+                pekerjaan_wali,
+                alamat_wali,
+                calon_perempuan,
+                binti_perempuan,
+                ttl_perempuan,
+                agama_perempuan,
+                pekerjaan_perempuan,
+                alamat_perempuan,
+                nama_laki_laki,
+                bin_laki_laki,
+                ttl_laki_laki,
+                agama_laki_laki,
+                pekerjaan_laki_laki,
+                alamat_laki_laki,
+                status_ttd,
+                disposisi_surat
             } = respond;
 
             $('#id').val(id);
@@ -53,6 +54,7 @@ function edit(id) {
             $('#alamat_laki_laki').val(alamat_laki_laki);
             $('#status_ttd').val(status_ttd);
             $('#disposisi_surat').val(disposisi_surat);
+            $('#catatan').val(catatan);
 
             $('#modal').modal('show');
             $('.modal-title').text(`Edit ${variableModel}`); 

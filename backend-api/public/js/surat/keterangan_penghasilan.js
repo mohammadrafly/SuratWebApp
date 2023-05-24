@@ -7,7 +7,7 @@ function edit(id) {
         type: 'GET',
         dataType: 'JSON',
         success: function(respond) {
-            const { author, nama, nik, ttl, pekerjaan, penghasilan, status_ttd, disposisi_surat } = respond;
+            const { catatan, author, nama, nik, ttl, pekerjaan, penghasilan, status_ttd, disposisi_surat } = respond;
             $('#id').val(id);
             $('#author').val(author);
             $('#nama').val(nama);
@@ -17,6 +17,7 @@ function edit(id) {
             $('#penghasilan').val(penghasilan);
             $('#status_ttd').val(status_ttd);
             $('#disposisi_surat').val(disposisi_surat);
+            $('#catatan').val(catatan);
             
             $('#modal').modal('show');
             $('.modal-title').text(`Edit ${variableModel}`); 

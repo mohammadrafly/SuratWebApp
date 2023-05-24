@@ -16,7 +16,9 @@
                         <tr>
                           <th>Author</th>
                           <th>Nama</th>
+                          <th>NIK</th>
                           <th>Jenis Kelamin</th>
+                          <th>TTL</th>
                           <th>Agama</th>
                           <th>Alamat</th>
                           <th>Status Perkawinan</th>
@@ -24,6 +26,7 @@
                           <th>Kewarganegaraan</th>
                           <th>Status TTD</th>
                           <th>Disposisi Surat</th>
+                          <th>Catatan</th>
                           <th>Opsi</th>
                         </tr>
                       </thead>
@@ -42,6 +45,7 @@
                           <td><?= $data['kewarganegaraan'] ?></td>
                           <td><?= $data['status_ttd'] ?></td>
                           <td><?= $data['disposisi_surat'] ?></td>
+                          <td><?= $data['catatan'] ?></td>
                           <td>
                             <button onclick="deleteData(<?= $data['id'] ?>)" class="btn btn-danger">Hapus</button>
                             <button onclick="edit(<?= $data['id'] ?>)" class="btn btn-primary">Edit</button>

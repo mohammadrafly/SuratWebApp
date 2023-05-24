@@ -147,15 +147,34 @@ class AuthController extends BaseController
         }
     }
 
+    function generateRandomFileName($originalFileName) {
+        $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+        $randomFileName = uniqid() . '.' . $extension;
+        return $randomFileName;
+    }
+    
+
     public function SignUp()
     {
         $model = new Users();
         $data = [
+            'alamat' => $this->request->getVar('alamat'),
+            'foto_ktp' => null,
+            'nomor_hp' => $this->request->getVar('nomor_hp'),
+            'nik' => $this->request->getVar('nik'),
             'email' => $this->request->getVar('email'),
             'name' => $this->request->getVar('name'),
-            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-            'role' => 'warga'
+            'password' => null,
+            'token' => '',
+            'role' => 'warga',
+            'status' => 'unverified'
         ];
+
+        $filePath = 'public/foto_ktp/';
+        $file = $this->request->getFile('foto_ktp');
+        $file->move(ROOTPATH . $filePath);
+        $randomName = $this->generateRandomFileName($file->getName());
+        $data['foto_ktp'] = $randomName;
 
         if ($model->where('email', $data['email'])->first()) {
             return $this->response->setJSON([

@@ -22,6 +22,7 @@ class SKeteranganTidakMampu extends Model
         'alamat',
         'pekerjaan',
         'status_ttd',
+        'catatan',
         'disposisi_surat'
     ];
 

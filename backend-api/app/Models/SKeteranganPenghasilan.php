@@ -22,6 +22,7 @@ class SKeteranganPenghasilan extends Model
         'pekerjaan',
         'penghasilan',
         'status_ttd',
+        'catatan',
         'disposisi_surat',
     ];
 

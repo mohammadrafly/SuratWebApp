@@ -1,38 +1,63 @@
 package com.example.suratapplication;
 
 import android.os.Bundle;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-    private WebView webView;
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+    BottomNavigationView bottomNavigationView;
+    Toolbar toolbar;
+    Fragment selectedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.dashboard_screen);
 
-        // Find the WebView in the layout
-        webView = findViewById(R.id.webView);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        // Enable JavaScript (optional)
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        // Load a web page
-        webView.loadUrl("https://surat-pwa.vercel.app/");
+        // Set the initial fragment
+        selectedFragment = new HomeFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flFragment, selectedFragment)
+                .commit();
+
+        bottomNavigationView.setSelectedItemId(R.id.home);
     }
 
-    // Override onBackPressed to handle the back button inside the WebView
     @Override
-    public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                selectedFragment = new HomeFragment();
+                getSupportActionBar().setTitle("Home");
+                break;
+            case R.id.surat:
+                selectedFragment = new SuratFragment();
+                getSupportActionBar().setTitle("Surat");
+                break;
+            case R.id.profile:
+                selectedFragment = new ProfileFragment();
+                getSupportActionBar().setTitle("Profile");
+                break;
         }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flFragment, selectedFragment)
+                .commit();
+
+        return true;
     }
 }

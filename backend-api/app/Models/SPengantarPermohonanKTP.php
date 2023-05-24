@@ -25,6 +25,7 @@ class SPengantarPermohonanKTP extends Model
         'jumlah_berkas',
         'keterangan',
         'status_ttd',
+        'catatan',
         'disposisi_surat'
     ];
 

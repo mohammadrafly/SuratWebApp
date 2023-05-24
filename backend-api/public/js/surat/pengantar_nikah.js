@@ -8,6 +8,7 @@ function edit(id) {
         dataType: 'JSON',
         success: function(respond) {
             const {
+                catatan,
                 author,
                 nama_wali,
                 nik,
@@ -53,6 +54,7 @@ function edit(id) {
             $('#alamat_laki_laki').val(alamat_laki_laki);
             $('#status_ttd').val(status_ttd);
             $('#disposisi_surat').val(disposisi_surat);
+            $('#catatan').val(catatan);
 
             $('#modal').modal('show');
             $('.modal-title').text(`Edit ${variableModel}`); 

@@ -7,7 +7,7 @@ function edit(id) {
         type: 'GET',
         dataType: 'JSON',
         success: function(respond) {
-            const { author, nama, nik, jenis_kelamin, ttl, agama, alamat, status_perkawinan, pekerjaan, kewarganegaraan, status_ttd, disposisi_surat } = respond;
+            const { catatan, author, nama, nik, jenis_kelamin, ttl, agama, alamat, status_perkawinan, pekerjaan, kewarganegaraan, status_ttd, disposisi_surat } = respond;
 
             $('#id').val(id);
             $('#author').val(author);
@@ -22,6 +22,7 @@ function edit(id) {
             $('#kewarganegaraan').val(kewarganegaraan);
             $('#status_ttd').val(status_ttd);
             $('#disposisi_surat').val(disposisi_surat);
+            $('#catatan').val(catatan);
             
 
             $('#modal').modal('show');

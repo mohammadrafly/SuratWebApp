@@ -44,12 +44,12 @@
                                             <label for="agama">Agama</label>
                                             <select class="form-control" id="agama" name="agama" required>
                                                 <option value="">Select Agama</option>
-                                                <option value="Islam">Islam</option>
-                                                <option value="Kristen">Kristen</option>
-                                                <option value="Katolik">Katolik</option>
-                                                <option value="Hindu">Hindu</option>
-                                                <option value="Buddha">Buddha</option>
-                                                <option value="Konghucu">Konghucu</option>
+                                                <option value="islam">Islam</option>
+                                                <option value="kristen">Kristen</option>
+                                                <option value="katolik">Katolik</option>
+                                                <option value="hindu">Hindu</option>
+                                                <option value="buddha">Buddha</option>
+                                                <option value="konghucu">Konghucu</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -60,9 +60,9 @@
                                             <label for="status_perkawinan">Status Perkawinan</label>
                                             <select class="form-control" id="status_perkawinan" name="status_perkawinan" required>
                                                 <option value="">Pilih Status Perkawinan</option>
-                                                <option value="Belum Menikah">Belum Menikah</option>
-                                                <option value="Menikah">Menikah</option>
-                                                <option value="Cerai">Cerai</option>
+                                                <option value="belum_menikah">Belum Menikah</option>
+                                                <option value="menikah">Menikah</option>
+                                                <option value="cerai">Cerai</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -86,7 +86,16 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="disposisi_surat">Disposisi Surat</label>
-                                            <textarea type="text" class="form-control" id="disposisi_surat" name="disposisi_surat" required></textarea>
+                                            <select class="form-control" id="disposisi_surat" name="disposisi_surat">
+                                                <option value="antrian">Antrian</option>
+                                                <option value="proses">Proses</option>
+                                                <option value="persetujuan">Persetujuan</option>
+                                                <option value="selesai">Selesai</option>
+                                                <option value="ditolak">Ditolak</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">Catatan</label>
+                                            <input type="text" class="form-control" id="catatan" name="catatan" placeholder="Enter disposisi surat">
                                         </div>
                                     </div>
                                     <div class="modal-footer">

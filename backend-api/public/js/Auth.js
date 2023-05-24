@@ -24,6 +24,7 @@ $(document).ready(function() {
             data: { email, password },
             dataType: 'JSON',
             success: function(response) {
+              console.log(response.role)
                 if (response.status) {
                   swal.fire({
                       icon: response.icon,
@@ -35,6 +36,12 @@ $(document).ready(function() {
                   }).then (function() {
                     window.location.href = `${base_url}dashboard`;
                   });
+                  // not work
+                  //if (response.role == 'admin') {
+                  //  
+                  //} else {
+                  //  showAlert('error', 'Invalid Credentials', 'Maaf anda bukan seorang admin! silahkan login di aplikasi mobile');
+                  //}
                 } else {
                   showAlert(response.icon, response.title, response.text);
                 }
