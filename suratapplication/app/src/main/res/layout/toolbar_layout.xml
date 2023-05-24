@@ -6,6 +6,7 @@
     <!-- toolbar_layout.xml -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/blue_custom"

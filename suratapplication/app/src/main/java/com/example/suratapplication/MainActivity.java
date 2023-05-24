@@ -2,36 +2,34 @@ package com.example.suratapplication;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-    BottomNavigationView bottomNavigationView;
-    Toolbar toolbar;
-    Fragment selectedFragment;
+
+    private BottomNavigationView bottomNavigationView;
+    private HomeFragment homeFragment;
+    private SuratFragment suratFragment;
+    private ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_screen);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        View backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> finish());
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        // Set the initial fragment
-        selectedFragment = new HomeFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.flFragment, selectedFragment)
-                .commit();
+        homeFragment = new HomeFragment();
+        suratFragment = new SuratFragment();
+        profileFragment = new ProfileFragment();
 
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
@@ -40,24 +38,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                selectedFragment = new HomeFragment();
-                getSupportActionBar().setTitle("Home");
-                break;
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flFragment, homeFragment)
+                        .commit();
+                return true;
+
             case R.id.surat:
-                selectedFragment = new SuratFragment();
-                getSupportActionBar().setTitle("Surat");
-                break;
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flFragment, suratFragment)
+                        .commit();
+                return true;
+
             case R.id.profile:
-                selectedFragment = new ProfileFragment();
-                getSupportActionBar().setTitle("Profile");
-                break;
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flFragment, profileFragment)
+                        .commit();
+                return true;
         }
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.flFragment, selectedFragment)
-                .commit();
-
-        return true;
+        return false;
     }
 }

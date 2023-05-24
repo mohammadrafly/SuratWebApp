@@ -206,7 +206,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.913"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,DuplicateSpeakableTextCheck" />
 
     <Button
         android:id="@+id/uploadButton"
@@ -237,19 +237,21 @@
         android:textColor="@color/blue_custom"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText,TextSizeCheck" />
 
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="85dp"
-        android:layout_height="34dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
         android:foregroundGravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/back_arrow_foreground" />
+        app:srcCompat="@mipmap/back_arrow_foreground"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
