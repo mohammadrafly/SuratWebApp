@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private HomeFragment homeFragment;
     private SuratFragment suratFragment;
     private ProfileFragment profileFragment;
+    private RiwayatFragment riwayatFragment;
     private UserData userData;
 
     @Override
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         homeFragment = HomeFragment.newInstance(userData);
+        riwayatFragment = new RiwayatFragment(); // Initialize riwayatFragment here
         suratFragment = SuratFragment.newInstance(userData);
         profileFragment = ProfileFragment.newInstance(userData);
 
@@ -49,6 +51,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.flFragment, homeFragment)
+                        .commit();
+                return true;
+
+            case R.id.riwayat:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flFragment, riwayatFragment)
                         .commit();
                 return true;
 

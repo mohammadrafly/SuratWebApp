@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama: John Doe"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tanggalTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tanggal: 01/01/2023"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/anakKeLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Keterangan: Surat Kelahiran"
+        android:textSize="14sp" />
+
+    <!-- Add additional TextViews or views to display other surat data -->
+
+</LinearLayout>

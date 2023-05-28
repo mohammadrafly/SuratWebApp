@@ -12,11 +12,11 @@
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/back_arrow_foreground" />
+        app:srcCompat="@mipmap/back_arrow_foreground"
+        android:importantForAccessibility="no" />
 
     <FrameLayout
         android:id="@+id/flFragment"
@@ -27,7 +27,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.865">
+        app:layout_constraintVertical_bias="0.865"
+        tools:ignore="VisualLintBounds">
 
     </FrameLayout>
 

@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.suratapplication.helper.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,8 +29,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText alamatField;
     private Button signUpButton;
     private RequestQueue requestQueue;
-
-    private static final String API_URL = "http://192.168.18.11/backend/api/V1/sign-up";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API_URL, jsonPayload,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.SIGN_UP_URL, jsonPayload,
                 response -> {
                     try {
                         boolean status = response.getBoolean("status");

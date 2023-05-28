@@ -19,13 +19,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.suratapplication.helper.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SignInActivity extends AppCompatActivity {
-
-    private static final String API_URL = "http://192.168.18.11/backend/api/V1/sign-in";
 
     private EditText emailField;
     private EditText passwordField;
@@ -97,7 +96,7 @@ public class SignInActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API_URL, jsonPayload,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.SIGN_IN_URL, jsonPayload,
                 response -> {
                     try {
                         boolean status = response.getBoolean("status");

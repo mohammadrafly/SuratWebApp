@@ -10,12 +10,11 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.example.suratapplication.model.UserData;
-import com.example.suratapplication.surat.SuratKelahiran;
+import com.example.suratapplication.riwayat.RiwayatKelahiran;
 
-public class SuratFragment extends Fragment {
-
-    public static SuratFragment newInstance(UserData userData) {
-        SuratFragment fragment = new SuratFragment();
+public class RiwayatFragment extends Fragment {
+    public static RiwayatFragment newInstance(UserData userData) {
+        RiwayatFragment fragment = new RiwayatFragment();
         Bundle args = new Bundle();
         args.putString("name", userData.getName());
         args.putString("role", userData.getRole());
@@ -27,16 +26,16 @@ public class SuratFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_surat2, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_riwayat, container, false);
 
         Button suratKelahiranButton = rootView.findViewById(R.id.buttonKelahiran);
-        suratKelahiranButton.setOnClickListener(v -> openSuratKelahiran());
+        suratKelahiranButton.setOnClickListener(v -> openRiwayatKelahiran());
 
         return rootView;
     }
 
-    private void openSuratKelahiran() {
-        Intent intent = new Intent(getActivity(), SuratKelahiran.class);
+    private void openRiwayatKelahiran() {
+        Intent intent = new Intent(getActivity(), RiwayatKelahiran.class);
         startActivity(intent);
     }
 }
