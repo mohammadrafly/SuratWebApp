@@ -81,7 +81,7 @@ class AuthController extends BaseController
             return ['isValid' => false, 'message' => 'Invalid token!'];
         }
     
-        if ($this->request->isAJAX() && $this->request->getMethod(true) === 'POST') {
+        if ($this->request->getMethod(true) === 'POST') {
             return ['isValid' => true];
         }
     
@@ -125,20 +125,27 @@ class AuthController extends BaseController
 
         if (password_verify($password, $checkPoint[0]['password'])) {
             if ($isFrontEnd) {
-                $token = $this->generateToken(100);
-                $data['token'] = $token;
-                $model->update($checkPoint[0]['id'], $data);
-                $this->setSession($checkPoint[0]);
-                return $this->response->setJSON([
-                    'status' => true, 
-                    'icon' => 'success', 
-                    'title' => 'Success!', 
-                    'text' => 'Login berhasil.',
-                    'message' => 'Login berhasil.',
-                    'dataUser' => $checkPoint[0],
-                    'token' => $isFrontEnd ? $token : null
-                ]);
-            } else if (!$isFrontEnd){
+                if ($checkPoint[0]['status'] != 'verified') {
+                    return $this->response->setJSON([
+                        'status' => false, 
+                        'message' => 'Akun anda belum terverfikasi.'
+                    ]);
+                } else {
+                    $token = $this->generateToken(100);
+                    $data['token'] = $token;
+                    $model->update($checkPoint[0]['id'], $data);
+                    $this->setSession($checkPoint[0]);
+                    return $this->response->setJSON([
+                        'status' => true, 
+                        'icon' => 'success', 
+                        'title' => 'Success!', 
+                        'text' => 'Login berhasil.',
+                        'message' => 'Login berhasil.',
+                        'dataUser' => $checkPoint[0],
+                        'token' => $isFrontEnd ? $token : null
+                    ]);
+                }
+            } elseif (!$isFrontEnd){
                 if ($checkPoint[0]['role'] == 'warga') {
                     return $this->response->setJSON([
                         'status' => false,
@@ -178,31 +185,13 @@ class AuthController extends BaseController
         $randomFileName = uniqid() . '.' . $extension;
         return $randomFileName;
     }
-    
 
     public function SignUp()
     {
         $model = new Users();
-        $data = [
-            'alamat' => $this->request->getVar('alamat'),
-            'foto_ktp' => null,
-            'nomor_hp' => $this->request->getVar('nomor_hp'),
-            'nik' => $this->request->getVar('nik'),
-            'email' => $this->request->getVar('email'),
-            'name' => $this->request->getVar('name'),
-            'password' => null,
-            'token' => '',
-            'role' => 'warga',
-            'status' => 'unverified'
-        ];
+        $email = $this->request->getVar('email');
 
-        $filePath = 'public/foto_ktp/';
-        $file = $this->request->getFile('foto_ktp');
-        $file->move(ROOTPATH . $filePath);
-        $randomName = $this->generateRandomFileName($file->getName());
-        $data['foto_ktp'] = $randomName;
-
-        if ($model->where('email', $data['email'])->first()) {
+        if ($model->where('email', $email)->first()) {
             return $this->response->setJSON([
                 'status' => false,
                 'icon' => 'error',
@@ -210,6 +199,19 @@ class AuthController extends BaseController
                 'text' => 'Email sudah digunakan.'
             ]);
         }
+
+        $data = [
+            'alamat' => $this->request->getVar('alamat'),
+            'foto_ktp' => null,
+            'nomor_hp' => $this->request->getVar('nomor_hp'),
+            'nik' => $this->request->getVar('nik'),
+            'email' => $email,
+            'name' => $this->request->getVar('name'),
+            'password' => null,
+            'token' => $this->generateToken(100),
+            'role' => 'warga',
+            'status' => 'unverified'
+        ];
 
         if (!$model->insert($data)) {
             return $this->response->setJSON([
@@ -220,6 +222,15 @@ class AuthController extends BaseController
             ]);
         }
 
+        $emailService = \Config\Services::email();
+        $emailService->setMailType('html')
+            ->setTo($email)
+            ->setFrom('suratapp@gmail.com', 'SWA')
+            ->setSubject('Verifikasi Akun')
+            ->setMessage(view('email/emailVerifying.php', $data))
+            ->setNewLine("\r\n");
+        $emailService->send("X-Priority: 1 (Highest)\n");
+
         return $this->response->setJSON([
             'status' => true,
             'icon' => 'success',
@@ -228,21 +239,72 @@ class AuthController extends BaseController
         ]);
     }
 
-    public function resetPassword()
+    public function VerifikasiAkun($email, $token)
     {
         $model = new Users();
-        $resetToken = new ResetPassword();
-        if (!$this->request->isAJAX() || $this->request->getMethod(true) !== 'POST') {
-            return view('pages/auth/ResetPassword', ['page' => 'Reset Password']);
-        }
-        $email = $this->request->getPost('email');
         $checkPoint = $model->where('email', $email)->first();
-        if (!$checkPoint) {
+        
+        if (!$checkPoint || $checkPoint['token'] !== $token) {
+            return view('pages/auth/invalidVerifikasi');
+        }
+        
+        if ($this->request->getMethod(true) !== 'POST') {
+            $data = [
+                'email' => $email,
+                'token' => $token,
+            ];
+            return view('pages/auth/verifikasiAkun', $data);
+        }
+
+        $picture = $this->request->getFile('foto_ktp');
+        
+        if ($picture->isValid() && !$picture->hasMoved()) {
+            $extension = $picture->getExtension();
+            $randName = uniqid() . '.' . $extension;
+            $picture->move('./uploads/foto_ktp', $randName);
+            
+            $data = [
+                'foto_ktp' => $randName,
+            ];
+            
+            $model->update($checkPoint['id'], $data);
             return $this->response->setJSON([
                 'status' => true, 
                 'icon' => 'success', 
                 'title' => 'Success!', 
-                'text' => 'Email invlaid.'
+                'text' => 'Sukses melakukan verifikasi, silahkan tunggu konfirmasi dari admin.'
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status' => false, 
+                'icon' => 'error', 
+                'title' => 'Error!', 
+                'text' => 'Gagal melakukan verifikasi, silahkan lakukan verifikasi ulang.'
+            ]);
+        }
+    }
+
+    public function resetPassword()
+    {
+        $model = new Users();
+        $resetToken = new ResetPassword();
+        $email = $this->request->getVar('email');
+        $checkPoint = $model->where('email', $email)->where('status', 'verified')->first();
+        if (!$checkPoint) {
+            return $this->response->setJSON([
+                'status' => false, 
+                'icon' => 'error', 
+                'title' => 'Error!', 
+                'text' => 'Email invalid atau belum terverifikasi.'
+            ]);
+        }
+
+        if ($resetToken->where('email', $email)->first()) {
+            return $this->response->setJSON([
+                'status' => false, 
+                'icon' => 'error', 
+                'title' => 'Error!', 
+                'text' => 'Opps.. anda sudah meminta reset password! silahkan cek email anda.'
             ]);
         }
         $token = $this->generateToken(150);
@@ -275,11 +337,19 @@ class AuthController extends BaseController
         }
     }
 
-    public function newPassword(string $email, string $token)
+    public function newPassword($email, $token)
     {
         $usersModel = new Users();
         $tokenModel = new ResetPassword();
-        $password = $this->request->getPost('password');
+        if ($this->request->getMethod(true) !== 'POST') {
+            $data = [
+                'email' => $email,
+                'token' => $token,
+                'page' => 'New Password'
+            ];
+            return view('pages/auth/ResetPassword', $data);
+        }
+        $password = $this->request->getVar('password');
         if (!$password) {
             return $this->response->setJSON([
                 'status' => false, 
@@ -292,23 +362,33 @@ class AuthController extends BaseController
         $tokenData = $tokenModel->where('email', $email)->first();
     
         if (!$user) {
-            return redirect()->to('/')->with('error', 'Invalid email!');
+            return $this->response->setJSON([
+                'status' => false, 
+                'icon' => 'error', 
+                'title' => 'Error!', 
+                'text' => 'Email invalid.'
+            ]);
         }
     
         $tokenStatus = $this->checkTokenStatus($token, $tokenData);
     
         if (!$tokenStatus['isValid']) {
             $tokenModel->where('token', $token)->delete();
-            return redirect()->to('/')->with('error', $tokenStatus['message']);
+            return $this->response->setJSON([
+                'status' => false, 
+                'icon' => 'error', 
+                'title' => 'Error!', 
+                'text' => 'Token invalid.'
+            ]);
         }
     
-        $usersModel->update($user['id'], ['password' => $password]);
+        $usersModel->update($user['id'], ['password' => password_hash($password, PASSWORD_DEFAULT)]);
+        $tokenModel->where('token', $token)->delete();
         return $this->response->setJSON([
             'status' => true, 
             'icon' => 'success', 
             'title' => 'Success!', 
             'text' => 'Reset password berhasil.'
         ]);
-        return view('pages/auth/NewPassword', ['page' => 'New Password']);
     }
 }

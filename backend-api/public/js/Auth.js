@@ -36,18 +36,54 @@ $(document).ready(function() {
                   }).then (function() {
                     window.location.href = `${base_url}dashboard`;
                   });
-                  // not work
-                  //if (response.role == 'admin') {
-                  //  
-                  //} else {
-                  //  showAlert('error', 'Invalid Credentials', 'Maaf anda bukan seorang admin! silahkan login di aplikasi mobile');
-                  //}
                 } else {
                   showAlert(response.icon, response.title, response.text);
                 }
             },
             error: function() {
               showAlert(response.icon, response.title, response.text);
+            }
+        });
+    });
+    $('#Verifikasi').submit(function(event) {
+        event.preventDefault();
+    
+        const fotoKtpInput = $('#foto_ktp');
+        const emailInput = $('#email');
+        const tokenInput = $('#token');
+
+        const token = tokenInput.val();
+        const email = emailInput.val();
+        const fotoKtp = fotoKtpInput[0].files[0];
+    
+        const formData = new FormData();
+        formData.append('foto_ktp', fotoKtp);
+        $.ajax({
+            url: `${base_url}verifying/account/${email}/${token}`,
+            type: 'POST',
+            data: formData,
+            dataType: 'JSON',
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response.role)
+                if (response.status) {
+                    swal.fire({
+                        icon: response.icon,
+                        title: response.title,
+                        text: response.text,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 3000
+                    }).then(function() {
+                        window.location.href = `${base_url}`;
+                    });
+                } else {
+                    showAlert(response.icon, response.title, response.text);
+                }
+            },
+            error: function() {
+                showAlert(response.icon, response.title, response.text);
             }
         });
     });

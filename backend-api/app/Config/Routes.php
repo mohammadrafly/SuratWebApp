@@ -35,7 +35,7 @@ $routes->group('api/V1/', function ($routes) {
     $routes->post('sign-up', 'AuthController::SignUp');
     $routes->match(['POST', 'GET'],'sign-up/verifying/(:any)/(:any)', 'AuthController::Verifying');
     $routes->post('reset-password-request', 'AuthController::resetPassword');
-    $routes->post('reset-password/(:any)/(:any)', 'AuthController::newPassword/$1/$2');
+    $routes->match(['POST', 'GET'], 'reset-password/(:any)/(:any)', 'AuthController::newPassword/$1/$2');
 });
 
 $routes->group('api/V1/', ['filter' => 'auth'], function($routes) {
@@ -169,14 +169,17 @@ $routes->group('dashboard', ['filter' => 'authweb'], function($routes) {
         $routes->match(['POST', 'GET'], 'update/(:num)', 'UserController::update/$1');
         $routes->get('delete/(:num)', 'UserController::delete/$1');
     });
+    $routes->group('warga', function ($routes) {
+        $routes->match(['POST', 'GET'], '/', 'WargaController::index');
+        $routes->match(['POST', 'GET'], 'update/(:num)', 'WargaController::update/$1');
+        $routes->get('delete/(:num)', 'WargaController::delete/$1');
+    });
 });
 
+$routes->match(['POST', 'GET'], 'verifying/account/(:any)/(:any)', 'AuthController::VerifikasiAkun/$1/$2');
 $routes->get('/', 'AuthController::SignIn');
 $routes->get('sign-out', 'DashboardController::LogOut');
 $routes->match(['GET', 'POST'], 'sign-in', 'AuthController::SignIn');
-$routes->match(['GET', 'POST'], 'reset-password-request', 'AuthController::resetPassword');
-$routes->match(['GET', 'POST'], 'reset-password/(:any)/(:any)', 'AuthController::newPassword/$1/$2');
-
 /*
  * --------------------------------------------------------------------
  * Additional Routing

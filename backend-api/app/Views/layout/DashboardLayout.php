@@ -22,6 +22,27 @@
   <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
   <!-- endinject -->
   <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.png') ?>" />
+  <style>
+  .enlarge {
+      position: relative;
+      display: inline-block;
+  }
+
+  .enlarge img {
+      transition: transform 0.3s ease-in-out;
+  }
+
+  .enlarge.fullscreen img {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      object-fit: contain;
+      cursor: zoom-out;
+  }
+  </style>
 </head>
 <body>
   <div class="container-scroller">

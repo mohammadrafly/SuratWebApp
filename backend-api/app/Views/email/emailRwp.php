@@ -17,11 +17,11 @@
         <hr>
         <p class="text-center">To reset your password, please click the button below:</p>
         <p class="text-center">
-          <a href="<?= base_url('reset-password/'.$email.'/'.$token) ?>" class="btn btn-primary">Reset Password</a>
+          <a href="<?= base_url('api/V1/reset-password/'.$email.'/'.$token) ?>" class="btn btn-primary">Reset Password</a>
         </p>
         <hr>
         <p class="text-center">If you're having trouble clicking the "Reset Password" button, copy and paste the following URL into your web browser:</p>
-        <p class="text-center"><a href="<?= base_url('reset-password/'.$email.'/'.$token)  ?>"><?= base_url('reset-password/'.$email.'/'.$token)  ?></a></p>
+        <p class="text-center"><a href="<?= base_url('api/V1/reset-password/'.$email.'/'.$token)  ?>"><?= base_url('api/V1/reset-password/'.$email.'/'.$token)  ?></a></p>
         <p class="text-center">Thank you for using our service!</p>
       </div>
     </div>

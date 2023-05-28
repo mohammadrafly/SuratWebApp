@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Users;
 
-class UserController extends BaseController
+class WargaController extends BaseController
 {
     public function index()
     {
@@ -13,10 +13,10 @@ class UserController extends BaseController
     
         if ($this->request->getMethod(true) !== 'POST') {
             $data = [
-                'title' => 'User',
-                'content' => $model->where('role !=', 'warga')->findAll(),
+                'title' => 'Warga',
+                'content' => $model->where('role', 'warga')->findAll(),
             ];
-            return view('pages/dashboard/users', $data);
+            return view('pages/dashboard/warga', $data);
         }
     
         $data = $this->request->getRawInput();
@@ -25,17 +25,18 @@ class UserController extends BaseController
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $data['password'] = $hashedPassword;
+        $data['role'] = 'warga';
 
         if (!$model->insert($data)) {
             return $this->response->setJSON([
                 'status' => false,
-                'message' => 'Gagal menambah user',
+                'message' => 'Gagal menambah warga',
             ]);
         }
     
         return $this->response->setJSON([
             'status' => true,
-            'message' => 'Berhasil menambah user',
+            'message' => 'Berhasil menambah warga',
         ]);
     }
     
@@ -52,16 +53,16 @@ class UserController extends BaseController
         }
 
         $data = $this->request->getRawInput();
-
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         if (!$model->update($id, $data)) {
             return $this->response->setJSON([
                 'status' => false,
-                'message' => 'Gagal update user',
+                'message' => 'Gagal update warga',
             ]);
         }
         return $this->response->setJSON([
             'status' => true,
-            'message' => 'Berhasil update user',
+            'message' => 'Berhasil update warga',
         ]);
     }
 
@@ -71,7 +72,7 @@ class UserController extends BaseController
         $model->where('id', $id)->delete($id);
         return $this->response->setJSON([
             'status' => true,
-            'message' => 'Berhasil hapus user',
+            'message' => 'Berhasil hapus warga',
         ]);
     }
 }

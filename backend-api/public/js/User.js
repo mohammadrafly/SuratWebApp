@@ -26,7 +26,54 @@
             }
         });
     }
-  
+
+    function verifikasi(id) {
+        save_method = 'update';
+        $('#form')[0].reset(); 
+        $.ajax({
+            url: `${base_url}dashboard/users/update/${id}`,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(response) {
+                const { id, foto_ktp, password } = response.data;
+                $('#id').val(id);
+                $('#foto_ktp').attr('src', `${base_url}uploads/foto_ktp/${foto_ktp}`);
+                $('#password').val(password);
+                
+                $('#verifikasi').modal('show');
+                $('.modal-title').text('Verifikasi Warga'); 
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
+    }
+    
+    function toggleFullscreen(element) {
+        element.classList.toggle('fullscreen');
+    }    
+        
+    function doVerification() {
+        const id = $('#id').val();
+        const url = `${base_url}dashboard/warga/update/${id}`;
+      
+            $.ajax({
+                url,
+                type: 'POST',
+                data: $('#form-verifikasi').serialize(),
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                success: ({ message }) => {
+                  alert(message)
+                  location.reload()
+                },
+                error: () => {
+                  alert('An error occurred while processing your request.');
+                },
+            });
+    }
+
     function save() {
         const id = $('#id').val();
         const url = id ? `${base_url}dashboard/users/update/${id}` : `${base_url}dashboard/users`;

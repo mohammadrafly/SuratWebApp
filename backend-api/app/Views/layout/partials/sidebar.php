@@ -15,6 +15,12 @@
               <span class="menu-title">Data User</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('dashboard/warga') ?>">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Data Warga</span>
+            </a>
+          </li>
 
           <li class="nav-divider">
             Data Surat Keterangan

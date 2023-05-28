@@ -20,7 +20,7 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="<?= base_url('assets/images/logo.svg') ?>" alt="logo">
+                <img src="<?= base_url('assets/images/favicon.png') ?>" alt="logo">
               </div>
               <?= $this->renderSection('content') ?>
             </div>
@@ -39,6 +39,7 @@
   <script src="<?= base_url('assets/js/template.js') ?>"></script>
   <script src="<?= base_url('assets/js/settings.js') ?>"></script>
   <script src="<?= base_url('assets/js/todolist.js') ?>"></script>
+  <?= $this->renderSection('script') ?>
 </body>
 
 </html>
