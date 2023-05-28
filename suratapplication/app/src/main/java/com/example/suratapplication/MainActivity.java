@@ -1,5 +1,8 @@
 package com.example.suratapplication;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -7,6 +10,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.suratapplication.model.UserData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -15,11 +19,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private HomeFragment homeFragment;
     private SuratFragment suratFragment;
     private ProfileFragment profileFragment;
+    private UserData userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_screen);
+
+        userData = getStoredUserData();
 
         View backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
@@ -27,13 +34,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        homeFragment = new HomeFragment();
-        suratFragment = new SuratFragment();
-        profileFragment = new ProfileFragment();
+        homeFragment = HomeFragment.newInstance(userData);
+        suratFragment = SuratFragment.newInstance(userData);
+        profileFragment = ProfileFragment.newInstance(userData);
 
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -59,5 +67,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
         }
         return false;
+    }
+
+    private UserData getStoredUserData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", "");
+        String role = sharedPreferences.getString("role", "");
+        String email = sharedPreferences.getString("email", "");
+        String token = sharedPreferences.getString("token", "");
+
+        return new UserData(name, role, email, token);
     }
 }

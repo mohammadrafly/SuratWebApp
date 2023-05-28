@@ -118,7 +118,8 @@ class AuthController extends BaseController
                 'status' => false,
                 'icon' => 'error',
                 'title' => 'Failed!',
-                'text' => 'Email invalid.'
+                'text' => 'Email invalid.',
+                'message' => 'Email invalid.'
             ]);
         }
 
@@ -127,22 +128,47 @@ class AuthController extends BaseController
                 $token = $this->generateToken(100);
                 $data['token'] = $token;
                 $model->update($checkPoint[0]['id'], $data);
-            }
-            $this->setSession($checkPoint[0]);
-            return $this->response->setJSON([
-                'status' => true, 
-                'icon' => 'success', 
-                'title' => 'Success!', 
-                'text' => 'Login berhasil.',
-                'dataUser' => $checkPoint[0],
-                'token' => $isFrontEnd ? $token : null
-            ]);
+                $this->setSession($checkPoint[0]);
+                return $this->response->setJSON([
+                    'status' => true, 
+                    'icon' => 'success', 
+                    'title' => 'Success!', 
+                    'text' => 'Login berhasil.',
+                    'message' => 'Login berhasil.',
+                    'dataUser' => $checkPoint[0],
+                    'token' => $isFrontEnd ? $token : null
+                ]);
+            } else if (!$isFrontEnd){
+                if ($checkPoint[0]['role'] == 'warga') {
+                    return $this->response->setJSON([
+                        'status' => false,
+                        'icon' => 'error',
+                        'title' => 'Error!',
+                        'text' => 'Invalid role or access denied.',
+                        'message' => 'Invalid role or access denied.',
+                        'dataUser' => null,
+                        'token' => null
+                    ]);
+                } else {
+                    $this->setSession($checkPoint[0]);
+                    return $this->response->setJSON([
+                        'status' => true, 
+                        'icon' => 'success', 
+                        'title' => 'Success!', 
+                        'text' => 'Login berhasil.',
+                        'message' => 'Login berhasil.',
+                        'dataUser' => $checkPoint[0],
+                        'token' => null
+                    ]);
+                }
+            }            
         } else {
             return $this->response->setJSON([
                 'status' => false,
                 'icon' => 'error',
                 'title' => 'Failed!',
-                'text' => 'Password invalid.'
+                'text' => 'Password invalid.',
+                'message' => 'Password invalid.'
             ]);
         }
     }

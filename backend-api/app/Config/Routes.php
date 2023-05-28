@@ -33,6 +33,7 @@ $routes->set404Override();
 $routes->group('api/V1/', function ($routes) {
     $routes->post('sign-in', 'AuthController::SignIn');
     $routes->post('sign-up', 'AuthController::SignUp');
+    $routes->match(['POST', 'GET'],'sign-up/verifying/(:any)/(:any)', 'AuthController::Verifying');
     $routes->post('reset-password-request', 'AuthController::resetPassword');
     $routes->post('reset-password/(:any)/(:any)', 'AuthController::newPassword/$1/$2');
 });

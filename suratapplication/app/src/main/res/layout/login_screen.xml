@@ -112,6 +112,16 @@
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="HardcodedText" />
 
+     <ProgressBar
+         android:id="@+id/progressBar"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:visibility="gone"
+         app:layout_constraintBottom_toTopOf="@+id/masuk"
+         app:layout_constraintEnd_toEndOf="@+id/masuk"
+         app:layout_constraintStart_toStartOf="@+id/masuk"
+         app:layout_constraintTop_toTopOf="@+id/masuk" />
+
      <Button
          android:id="@+id/daftar"
          android:layout_width="310dp"

@@ -6,25 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/white_custom">
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="310dp"
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="70dp"
         android:layout_height="50dp"
-        android:background="@drawable/custom_input"
-        android:ems="10"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif-black"
-        android:hint="Budi Tabudi"
-        android:inputType="textPersonName"
-        android:paddingStart="20dp"
-        android:textColorHint="@color/black_custom_2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472"
-        tools:ignore="Autofill,HardcodedText,RtlSymmetry,TextContrastCheck" />
+        app:srcCompat="@mipmap/back_arrow_foreground" />
 
     <TextView
         android:id="@+id/titleNik"
@@ -40,7 +30,7 @@
         app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.309"
+        app:layout_constraintVertical_bias="0.163"
         tools:ignore="RtlHardcoded,TextSizeCheck" />
 
     <EditText
@@ -49,37 +39,20 @@
         android:layout_height="50dp"
         android:background="@drawable/custom_input"
         android:ems="10"
-        android:textColor="@color/black"
         android:fontFamily="sans-serif-black"
         android:hint="35100000XXXXX"
         android:importantForAutofill="no"
         android:inputType="number"
         android:paddingStart="20dp"
+        android:textColor="@color/black"
         android:textColorHint="@color/black_custom_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.359"
+        app:layout_constraintTop_toBottomOf="@+id/titleNik"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="HardcodedText,RtlSymmetry,TextContrastCheck" />
-
-    <TextView
-        android:id="@+id/titleName"
-        android:layout_width="255dp"
-        android:layout_height="27dp"
-        android:fontFamily="sans-serif-black"
-        android:gravity="left"
-        android:text="@string/titleName"
-        android:textColor="@color/blue_custom"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.419"
-        tools:ignore="RtlHardcoded,TextSizeCheck" />
 
     <EditText
         android:id="@+id/email"
@@ -87,19 +60,57 @@
         android:layout_height="50dp"
         android:background="@drawable/custom_input"
         android:ems="10"
-        android:textColor="@color/black"
         android:fontFamily="sans-serif-black"
         android:hint="budi@gmail.com"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:paddingStart="20dp"
+        android:textColor="@color/black"
         android:textColorHint="@color/black_custom_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.585"
+        app:layout_constraintTop_toBottomOf="@+id/titleEmail"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText,RtlSymmetry,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/titleEmail"
+        android:layout_width="255dp"
+        android:layout_height="27dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="left"
+        android:text="@string/titleEmail"
+        android:textColor="@color/blue_custom"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintVertical_bias="0.042"
+        tools:ignore="RtlHardcoded,TextSizeCheck" />
+
+    <EditText
+        android:id="@+id/nomorhp"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:fontFamily="sans-serif-black"
+        android:hint="628190000XXX"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:paddingStart="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black_custom_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleNomorHp"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="HardcodedText,RtlSymmetry,TextContrastCheck" />
 
     <TextView
@@ -115,30 +126,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.637"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintVertical_bias="0.055"
         tools:ignore="RtlHardcoded,TextSizeCheck" />
 
     <EditText
-        android:id="@+id/nomorhp"
+        android:id="@+id/alamat"
         android:layout_width="310dp"
         android:layout_height="50dp"
         android:background="@drawable/custom_input"
         android:ems="10"
-        android:textColor="@color/black"
         android:fontFamily="sans-serif-black"
-        android:hint="628190000XXX"
+        android:hint="Jln Dulu Yuk"
         android:importantForAutofill="no"
-        android:inputType="number"
-        android:paddingStart="20dp"
+        android:inputType="textMultiLine"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
         android:textColorHint="@color/black_custom_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.698"
-        tools:ignore="HardcodedText,RtlSymmetry,TextContrastCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/titleAlamat"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,TextContrastCheck" />
 
     <TextView
         android:id="@+id/titleAlamat"
@@ -153,48 +164,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.745"
+        app:layout_constraintTop_toBottomOf="@+id/nomorhp"
+        app:layout_constraintVertical_bias="0.06"
         tools:ignore="RtlHardcoded,TextSizeCheck" />
-
-    <EditText
-        android:id="@+id/alamat"
-        android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:background="@drawable/custom_input"
-        android:ems="10"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif-black"
-        android:hint="Jln Dulu Yuk"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:paddingLeft="20dp"
-        android:textColorHint="@color/black_custom_2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81"
-        tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,TextContrastCheck" />
-
-    <TextView
-        android:id="@+id/titleEmail"
-        android:layout_width="255dp"
-        android:layout_height="27dp"
-        android:fontFamily="sans-serif-black"
-        android:gravity="left"
-        android:text="@string/titleEmail"
-        android:textColor="@color/blue_custom"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.528"
-        tools:ignore="RtlHardcoded,TextSizeCheck" />
-
 
     <Button
         android:id="@+id/register"
@@ -209,32 +181,53 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.913"
+        app:layout_constraintVertical_bias="0.879"
         tools:ignore="HardcodedText,DuplicateSpeakableTextCheck" />
 
-    <Button
-        android:id="@+id/uploadButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/upload"
+
+    <TextView
+        android:id="@+id/titleName"
+        android:layout_width="255dp"
+        android:layout_height="27dp"
         android:fontFamily="sans-serif-black"
-        android:padding="16dp"
-        android:text="Foto KTP"
-        android:textColor="@color/black_custom_2"
+        android:gravity="left"
+        android:text="@string/titleName"
+        android:textColor="@color/blue_custom"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.151"
-        tools:ignore="HardcodedText,TextContrastCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/nik"
+        app:layout_constraintVertical_bias="0.031"
+        tools:ignore="RtlHardcoded,TextSizeCheck" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:fontFamily="sans-serif-black"
+        android:hint="Budi Tabudi"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black_custom_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleName"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="Autofill,HardcodedText,RtlSymmetry,TextContrastCheck" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="85dp"
         android:layout_height="34dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="DAFTAR"
@@ -243,19 +236,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText,TextSizeCheck" />
-
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="85dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:background="@android:color/transparent"
-        android:foregroundGravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/back_arrow_foreground"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

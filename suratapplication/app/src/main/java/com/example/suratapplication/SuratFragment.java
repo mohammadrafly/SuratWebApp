@@ -7,10 +7,19 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.suratapplication.model.UserData;
+
 public class SuratFragment extends Fragment {
 
-    public SuratFragment(){
-        // require a empty public constructor
+    public static SuratFragment newInstance(UserData userData) {
+        SuratFragment fragment = new SuratFragment();
+        Bundle args = new Bundle();
+        args.putString("name", userData.getName());
+        args.putString("role", userData.getRole());
+        args.putString("email", userData.getEmail());
+        args.putString("token", userData.getToken());
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

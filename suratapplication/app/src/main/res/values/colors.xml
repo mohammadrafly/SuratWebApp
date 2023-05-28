@@ -13,4 +13,5 @@
     <color name="black_custom">#546E7A</color>
     <color name="black_custom_2">#a6a6a6</color>
     <color name="orange">#E57C23</color>
+    <color name="red">#FF0000</color>
 </resources>

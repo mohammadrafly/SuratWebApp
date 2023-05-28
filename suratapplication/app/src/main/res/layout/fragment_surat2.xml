@@ -11,18 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/suratFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Surat"
-            android:textColor="#43a047"
-            android:textSize="40sp"
-            android:textStyle="italic|bold"
+        <Button
+            android:id="@+id/buttonCreateSurat"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_button"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Buat Surat"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.346" />
+
+        <Button
+            android:id="@+id/buttonRiwayatSurat"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:text="Riwayat Surat"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/custom_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonCreateSurat"
+            app:layout_constraintVertical_bias="0.058" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

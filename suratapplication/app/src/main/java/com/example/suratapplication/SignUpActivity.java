@@ -1,30 +1,35 @@
 package com.example.suratapplication;
 
-import android.content.DialogInterface;
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SignUpActivity extends AppCompatActivity {
-    private static final int REQUEST_CAMERA_PERMISSION = 1;
-    private static final int REQUEST_IMAGE_CAPTURE = 2;
-    private static final int REQUEST_IMAGE_PICKER = 3;
+    private EditText nikField;
+    private EditText namaField;
+    private EditText emailField;
+    private EditText nomorHpField;
+    private EditText alamatField;
+    private Button signUpButton;
+    private RequestQueue requestQueue;
 
-    private Button uploadButton;
+    private static final String API_URL = "http://192.168.18.11/backend/api/V1/sign-up";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,96 +39,62 @@ public class SignUpActivity extends AppCompatActivity {
         View backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
 
-        uploadButton = findViewById(R.id.uploadButton);
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openImagePicker();
-            }
-        });
+        nikField = findViewById(R.id.nik);
+        namaField = findViewById(R.id.name);
+        emailField = findViewById(R.id.email);
+        nomorHpField = findViewById(R.id.nomorhp);
+        alamatField = findViewById(R.id.alamat);
+        signUpButton = findViewById(R.id.register);
+
+        requestQueue = Volley.newRequestQueue(this);
+
+        setupSignUpButton();
     }
 
-    private void openImagePicker() {
-        // Check for camera and storage permissions
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // Permissions not granted, show the permission dialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Permission Required")
-                    .setMessage("Camera and Storage permissions are required to access the image picker.")
-                    .setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Request camera and storage permissions
-                            ActivityCompat.requestPermissions(SignUpActivity.this, new String[]{
-                                    android.Manifest.permission.CAMERA,
-                                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                            }, REQUEST_CAMERA_PERMISSION);
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Permission dialog canceled, do nothing
-                        }
-                    })
-                    .create()
-                    .show();
-        } else {
-            // Permissions already granted, launch image picker
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, REQUEST_IMAGE_PICKER);
-        }
+    private void setupSignUpButton() {
+        signUpButton.setOnClickListener(view -> sendJsonPayload());
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CAMERA_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                // Camera and storage permissions granted, launch image picker
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQUEST_IMAGE_PICKER);
-            } else {
-                // Permissions denied
-                Toast.makeText(this, "Permissions denied.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+    private void sendJsonPayload() {
+        String email = emailField.getText().toString();
+        String name = namaField.getText().toString();
+        String nik = nikField.getText().toString();
+        String nomor = nomorHpField.getText().toString();
+        String alamat = alamatField.getText().toString();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_IMAGE_CAPTURE) {
-                // Photo captured from camera
-                // TODO: Handle the captured photo
-                Uri imageUri = data.getData();
-                // Do something with the captured photo (e.g., display it in an ImageView)
-                Bitmap bitmap = decodeUriToBitmap(imageUri);
-                BitmapDrawable drawable = new BitmapDrawable(getResources(), bitmap);
-                uploadButton.setBackground(drawable);
-            } else if (requestCode == REQUEST_IMAGE_PICKER) {
-                // Photo selected from image picker
-                // TODO: Handle the selected photo
-                Uri imageUri = data.getData();
-                // Do something with the selected photo (e.g., display it in an ImageView)
-                Bitmap bitmap = decodeUriToBitmap(imageUri);
-                BitmapDrawable drawable = new BitmapDrawable(getResources(), bitmap);
-                uploadButton.setBackground(drawable);
-            }
-        }
-    }
-
-    // Helper method to decode the image URI to a bitmap
-    private Bitmap decodeUriToBitmap(Uri uri) {
+        JSONObject jsonPayload = new JSONObject();
         try {
-            // Decode the image URI to a bitmap
-            return BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-        } catch (Exception e) {
+            jsonPayload.put("email", email);
+            jsonPayload.put("name", name);
+            jsonPayload.put("nik", nik);
+            jsonPayload.put("nomor_hp", nomor);
+            jsonPayload.put("alamat", alamat);
+        } catch (JSONException e) {
             e.printStackTrace();
-            return null;
         }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API_URL, jsonPayload,
+                response -> {
+                    try {
+                        boolean status = response.getBoolean("status");
+                        String message = response.getString("message");
+                        if (status) {
+                            Toast.makeText(SignUpActivity.this, message, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(SignUpActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    Log.e(TAG, "Register Error: " + error.getMessage());
+                    Toast.makeText(SignUpActivity.this, "Register failed.", Toast.LENGTH_SHORT).show();
+                });
+
+        requestQueue.add(request);
     }
 }
