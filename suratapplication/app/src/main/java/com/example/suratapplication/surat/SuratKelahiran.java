@@ -1,10 +1,7 @@
 package com.example.suratapplication.surat;
 
-import static android.content.ContentValues.TAG;
-
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,29 +10,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.suratapplication.R;
-import com.example.suratapplication.SuratFragment;
 import com.example.suratapplication.helper.Constants;
-import com.example.suratapplication.model.UserData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SuratKelahiran extends AppCompatActivity {
-    private String name;
-    private int anakKe;
     private EditText nikField;
     private EditText namaField;
     private EditText alamatField;
@@ -44,7 +32,9 @@ public class SuratKelahiran extends AppCompatActivity {
     private EditText kelahiranKeField;
     private EditText dilahirkanDiField;
     private Button kirimButton;
+
     private RequestQueue requestQueue;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,20 +54,10 @@ public class SuratKelahiran extends AppCompatActivity {
         kirimButton = findViewById(R.id.Kirim);
 
         requestQueue = Volley.newRequestQueue(this);
+        sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
 
         setupKirimButton();
     }
-
-    public static SuratKelahiran newInstance(UserData userData) {
-        SuratKelahiran suratKelahiran = new SuratKelahiran();
-        Intent intent = new Intent(suratKelahiran, SuratKelahiran.class);
-        intent.putExtra("name", userData.getName());
-        intent.putExtra("role", userData.getRole());
-        intent.putExtra("email", userData.getEmail());
-        intent.putExtra("token", userData.getToken());
-        return suratKelahiran;
-    }
-
 
     private void setupKirimButton() {
         kirimButton.setOnClickListener(view -> sendJsonPayload());
@@ -94,8 +74,8 @@ public class SuratKelahiran extends AppCompatActivity {
         String alamat = alamatField.getText().toString();
         String dilahirkanDi = dilahirkanDiField.getText().toString();
 
-        String email = getIntent().getStringExtra("email");
-        String token = getIntent().getStringExtra("token");
+        String email = sharedPreferences.getString("email", "");
+        String token = sharedPreferences.getString("token", "");
 
         JSONObject jsonPayload = new JSONObject();
         try {
@@ -107,68 +87,27 @@ public class SuratKelahiran extends AppCompatActivity {
             jsonPayload.put("dilahirkan_di", dilahirkanDi);
             jsonPayload.put("kelahiran_ke", kelahiranKe);
             jsonPayload.put("penolong_kelahiran", penolongKelahiran);
-            jsonPayload.put("alamat", alamat);
+            jsonPayload.put("alamat_anak", alamat);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.SEND_SURAT_KELAHIRAN, jsonPayload,
+        String url = Constants.SEND_SURAT_KELAHIRAN;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonPayload,
                 response -> {
-                    try {
-                        boolean status = response.getBoolean("status");
-                        String message = response.getString("message");
-                        Log.e(TAG, "Kirim Error: " + status);
-                        if (status) {
-                            Toast.makeText(SuratKelahiran.this, message, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SuratKelahiran.this, SuratFragment.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(SuratKelahiran.this, message, Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(SuratKelahiran.this, "Invalid response from the server.", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(SuratKelahiran.this, "Surat kelahiran berhasil dikirim", Toast.LENGTH_SHORT).show();
+                    finish();
                 },
-                error -> {
-                    Log.e(TAG, "Kirim Error: " + error.getMessage());
-                    Toast.makeText(SuratKelahiran.this, "Kirim failed.", Toast.LENGTH_SHORT).show();
-                }) {
+                error -> Toast.makeText(SuratKelahiran.this, "Gagal mengirim surat kelahiran", Toast.LENGTH_SHORT).show()) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + token);
+                headers.put("Content-Type", "application/json");
                 return headers;
-            }
-
-            @Override
-            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-                try {
-                    String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-                    return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
-                } catch (UnsupportedEncodingException | JSONException e) {
-                    return Response.error(new ParseError(e));
-                }
             }
         };
 
         requestQueue.add(request);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAnakKe() {
-        return anakKe;
-    }
-
-    public void setAnakKe(int anakKe) {
-        this.anakKe = anakKe;
     }
 }

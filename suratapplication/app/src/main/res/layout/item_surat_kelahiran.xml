@@ -1,32 +1,125 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:background="@color/cardview_shadow_end_color"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/nameLabel"
+        android:id="@+id/namaTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama:"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/black_custom" />
+
+    <TextView
+        android:id="@+id/namaTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nama: John Doe"
+        android:layout_toRightOf="@id/namaTitleTextView"
+        android:text=""
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:fontFamily="sans-serif-condensed-light"
+        android:textColor="@color/black_custom" />
+
+    <TextView
+        android:id="@+id/statusTtdTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/namaTextView"
+        android:layout_alignStart="@id/namaTitleTextView"
+        android:text="Status TTD:"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="@color/black_custom" />
+
+    <TextView
+        android:id="@+id/statusTtdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/namaTextView"
+        android:layout_toRightOf="@id/statusTtdTitleTextView"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text=""
+        android:textColor="@color/black_custom"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/disposisiTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusTtdTextView"
+        android:layout_alignStart="@id/namaTitleTextView"
+        android:text="Disposisi:"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="@color/black_custom" />
+
+    <TextView
+        android:id="@+id/disposisiTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusTtdTextView"
+        android:layout_toRightOf="@id/disposisiTitleTextView"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text=""
+        android:textColor="@color/black_custom"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/catatanTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/disposisiTextView"
+        android:layout_alignStart="@id/namaTitleTextView"
+        android:text="Catatan:"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="@color/black_custom" />
+
+    <TextView
+        android:id="@+id/catatanTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/disposisiTextView"
+        android:layout_toRightOf="@id/catatanTitleTextView"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text=""
+        android:textColor="@color/black_custom"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tanggalTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/catatanTextView"
+        android:layout_alignStart="@id/namaTitleTextView"
+        android:text="Tanggal:"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="@color/black_custom" />
 
     <TextView
         android:id="@+id/tanggalTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tanggal: 01/01/2023"
+        android:layout_below="@id/catatanTextView"
+        android:layout_toRightOf="@id/tanggalTitleTextView"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textColor="@color/black_custom"
+        android:text=""
         android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/anakKeLabel"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/detailsButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Keterangan: Surat Kelahiran"
-        android:textSize="14sp" />
+        android:layout_below="@id/tanggalTextView"
+        android:background="@drawable/custom_button"
+        android:layout_marginTop="16dp"
+        android:padding="15dp"
+        android:gravity="left"
+        android:text="Show Details" />
 
-    <!-- Add additional TextViews or views to display other surat data -->
-
-</LinearLayout>
+</RelativeLayout>

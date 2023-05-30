@@ -51,6 +51,7 @@
             android:name=".riwayat.RiwayatKelahiran"
             android:exported="true">
         </activity>
+        <activity android:name=".SuratFragment" />
     </application>
 
 </manifest>
