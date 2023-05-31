@@ -5,6 +5,13 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visible="false"/>
+
+    <TextView
         android:id="@+id/namaTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -121,5 +128,15 @@
         android:padding="15dp"
         android:gravity="left"
         android:text="Show Details" />
+
+    <Button
+        android:id="@+id/downloadPdfButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tanggalTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="16dp"
+        android:text="Download PDF" />
 
 </RelativeLayout>

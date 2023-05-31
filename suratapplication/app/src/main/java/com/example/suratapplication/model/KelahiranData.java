@@ -2,6 +2,7 @@ package com.example.suratapplication.model;
 
 public class KelahiranData {
     private String author;
+    private int id;
     private String nama_lengkap;
     private String jenis_kelamin;
     private String dilahirkan_di;
@@ -14,6 +15,15 @@ public class KelahiranData {
     private String catatan;
     private String disposisi_surat;
     private String created_at;
+    private String surat;
+
+    public String getSurat() {
+        return surat;
+    }
+
+    public void setSurat(String catatan) {
+        this.surat = catatan;
+    }
 
     public String getTanggal() {
         return created_at;
@@ -21,6 +31,14 @@ public class KelahiranData {
 
     public void setTanggal(String created_at) {
         this.created_at = created_at;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAuthor() {

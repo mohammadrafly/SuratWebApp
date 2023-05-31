@@ -14,4 +14,7 @@
     <color name="black_custom_2">#a6a6a6</color>
     <color name="orange">#E57C23</color>
     <color name="red">#FF0000</color>
+    <color name="dark_gray">#808080</color>
+    <color name="switch_thumb_color">#FF4081</color>
+    <color name="switch_track_color">#C8C8C8</color>
 </resources>

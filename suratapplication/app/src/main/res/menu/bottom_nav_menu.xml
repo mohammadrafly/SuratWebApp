@@ -15,7 +15,8 @@
         android:id="@+id/surat"
         android:title="Surat"
         android:icon="@drawable/baseline_content_paste_go_24"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        android:visible="true" />
     <item
         android:id="@+id/profile"
         android:title="Profile"
